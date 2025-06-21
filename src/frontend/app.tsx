@@ -1,12 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import RootPage from "@/frontend/pages/_root";
+
 const router = createBrowserRouter([
   {
     path: "/",
     children: [
       {
         index: true,
-        element: <div>Hello...</div>,
+        element: <RootPage />,
       },
     ],
   },
