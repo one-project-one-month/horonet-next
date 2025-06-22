@@ -1,7 +1,7 @@
 import { trpc } from "@/trpc/clitent";
 
 const RootPage = () => {
-  const query = trpc.hello.useQuery({ text: "SuperCoder" });
+  const query = trpc.hello.useQuery({ text: "Hello" });
   if (!query.data) {
     return <div>Loading...</div>;
   }
