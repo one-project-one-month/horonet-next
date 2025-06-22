@@ -1,3 +1,31 @@
+CREATE TYPE "public"."element_enum" AS ENUM('Fire', 'Earth', 'Air', 'Water');--> statement-breakpoint
+CREATE TABLE "decan" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"sign_id" uuid NOT NULL,
+	"period_start" varchar(5) NOT NULL,
+	"period_end" varchar(5) NOT NULL,
+	"description" text NOT NULL,
+	"traits" text[] DEFAULT '{}' NOT NULL,
+	"decan" integer NOT NULL,
+	"rulingPlanet" text NOT NULL,
+	CONSTRAINT "decan_id_unique" UNIQUE("id")
+);
+--> statement-breakpoint
+CREATE TABLE "sign" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"name" varchar(19) NOT NULL,
+	"element" "element_enum" NOT NULL,
+	"period_start" varchar(5) NOT NULL,
+	"period_end" varchar(5) NOT NULL,
+	CONSTRAINT "sign_id_unique" UNIQUE("id")
+);
+--> statement-breakpoint
+CREATE TABLE "user_detail" (
+	"userId" text PRIMARY KEY NOT NULL,
+	"birthday" date NOT NULL,
+	"decan_id" uuid NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "account" (
 	"id" text PRIMARY KEY NOT NULL,
 	"account_id" text NOT NULL,
@@ -46,5 +74,8 @@ CREATE TABLE "verification" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+ALTER TABLE "decan" ADD CONSTRAINT "decan_sign_id_sign_id_fk" FOREIGN KEY ("sign_id") REFERENCES "public"."sign"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "user_detail" ADD CONSTRAINT "user_detail_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "user_detail" ADD CONSTRAINT "user_detail_decan_id_decan_id_fk" FOREIGN KEY ("decan_id") REFERENCES "public"."decan"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
