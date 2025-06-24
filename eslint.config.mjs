@@ -11,10 +11,22 @@ export default antfu(
       semi: true,
       quotes: "double",
     },
-    ignores: [".husky", ".github", ".idea", "package.json", "drizzle"],
+    ignores: [".husky", ".github", ".idea", "package.json", "drizzle", "src/components/ui"],
   },
   {
     rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
       "ts/no-redeclare": "off",
       "ts/consistent-type-definitions": ["error", "type"],
       "no-console": ["warn"],

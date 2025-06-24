@@ -1,6 +1,11 @@
 import type { IssueData } from "zod";
 
+import { subYears } from "date-fns";
 import { z } from "zod";
+
+import type { Gender } from "@/database/enums";
+
+import { genderEnum } from "@/database/enums";
 
 const password = z
   .string()
@@ -38,3 +43,18 @@ export const SignUpSchema = z
   });
 
 export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
+
+export const OnboardingSchema = z.object({
+  birthday: z
+    .date()
+    .max(
+      subYears(new Date(), 16),
+      "You have to be at least 16 years old to use our service!",
+    ),
+  gender: z
+    .string()
+    .refine(arg => genderEnum.enumValues.includes(arg as Gender)),
+  bio: z.string().optional(),
+});
+
+export type OnboardingSchemaType = z.infer<typeof OnboardingSchema>;

@@ -7,4 +7,7 @@ export const elementEnum = pgEnum("element_enum", [
   "Water",
 ]);
 
+export const genderEnum = pgEnum("gender", ["MALE", "FEMALE", "OTHER"]);
+
 export type Element = (typeof elementEnum.enumValues)[number];
+export type Gender = (typeof genderEnum.enumValues)[number];

@@ -35,9 +35,9 @@ const SignUpForm = () => {
         password: data.password,
       },
       {
-        onSuccess: () => {
+        onSuccess: (ctx) => {
           toast.success("Sign up successfully");
-          navigate("/");
+          navigate("/onboarding", { state: { id: ctx.data.id } });
         },
         onError: (ctx) => {
           toast.error("Sign up failed", { description: ctx.error.message });

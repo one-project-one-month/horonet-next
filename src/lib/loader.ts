@@ -13,5 +13,5 @@ export const authLoader: LoaderFunction = async ({ request }) => {
   if (!session.data) {
     return redirect("/landing");
   }
-  return session;
+  return session.data.user;
 };

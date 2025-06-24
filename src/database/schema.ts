@@ -8,7 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { user } from "@/database/auth-schema";
-import { elementEnum } from "@/database/enums";
+import { elementEnum, genderEnum } from "@/database/enums";
 
 export const sign = pgTable("sign", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
@@ -40,4 +40,6 @@ export const userDetail = pgTable("user_detail", {
   decanId: uuid("decan_id")
     .notNull()
     .references(() => decan.id),
+  bio: text(),
+  gender: genderEnum("gender").notNull(),
 });
