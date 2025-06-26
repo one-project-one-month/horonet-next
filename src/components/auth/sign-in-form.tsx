@@ -4,70 +4,48 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
-import type { SignUpSchemaType } from "@/database/validators";
+import type { SignInSchemaType } from "@/database/validators";
 
 import { Button } from "@/components/ui/button";
-import { SignUpSchema } from "@/database/validators";
+import { SignInSchema } from "@/database/validators";
 import { authClient } from "@/lib/auth-client";
 
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import PasswordField from "./password-field";
 
-const SignUpForm = () => {
-  const form = useForm<SignUpSchemaType>({
-    resolver: zodResolver(SignUpSchema),
+const SignInForm = () => {
+  const form = useForm<SignInSchemaType>({
+    resolver: zodResolver(SignInSchema),
     defaultValues: {
-      fullName: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
-
   const navigate = useNavigate();
 
-  const onSubmit = async (data: SignUpSchemaType) => {
-    await authClient.signUp.email(
+  const onSubmit = async (data: SignInSchemaType) => {
+    await authClient.signIn.email(
       {
-        name: data.fullName,
-        email: data.email,
-        password: data.password,
+        ...data,
       },
       {
         onSuccess: () => {
-          toast.success("Sign up successfully");
-          navigate("/onboarding");
+          toast.success("Sign In successfully");
+          navigate("/app/horoscope");
         },
         onError: (ctx) => {
-          toast.error("Sign up failed", { description: ctx.error.message });
+          toast.error("Sign In failed", { description: ctx.error.message });
         },
       },
     );
   };
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={"flex flex-col gap-y-5"}
       >
-        <FormField
-          control={form.control}
-          name={"fullName"}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className={"text-white"}>Full name:</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={"Eg: Super Mario"}
-                  {...field}
-                  className="bg-white/10 border-white/20 text-white placeholder-white/50"
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name={"email"}
@@ -100,23 +78,6 @@ const SignUpForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name={"confirmPassword"}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className={"text-white"}>Password</FormLabel>
-              <FormControl>
-                <PasswordField
-                  onChange={field.onChange}
-                  value={field.value}
-                  className="bg-white/10 border-white/20 text-white placeholder-white/50"
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-
         <Button
           className={"mt-4 w-full text-white"}
           variant={"cosmic"}
@@ -127,11 +88,11 @@ const SignUpForm = () => {
             ? (
                 <>
                   <Loader2 className={"mr-2 inline-block animate-spin"} />
-                  <span>Signing Up..</span>
+                  <span>Signing In..</span>
                 </>
               )
             : (
-                <span>Sign Up</span>
+                <span>Sign In</span>
               )}
         </Button>
       </form>
@@ -139,4 +100,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

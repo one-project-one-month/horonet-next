@@ -44,6 +44,13 @@ export const SignUpSchema = z
 
 export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
+export const SignInSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export type SignInSchemaType = z.infer<typeof SignInSchema>;
+
 export const OnboardingSchema = z.object({
   birthday: z
     .date()
