@@ -1,9 +1,4 @@
-import {
-  MessageCircleHeart,
-  Sparkles,
-  User,
-  Users,
-} from "lucide-react";
+import { MessageCircleHeart, Sparkles, User, Users } from "lucide-react";
 
 export const FEATURES = [
   {
@@ -75,7 +70,7 @@ export const REVIEWS = [
   },
 ];
 
-export const NAV_ITEMS = [
+export const NAV_ITEMS_MOBILE = [
   {
     icon: <Sparkles />,
     path: "/app/horoscope",
@@ -95,5 +90,23 @@ export const NAV_ITEMS = [
     icon: <User />,
     path: "/app/user/profile",
     name: "Profile",
+  },
+];
+
+export const NAV_ITEMS_LARGE = [
+  {
+    icon: <Sparkles />,
+    path: "/app/horoscope",
+    name: "Horoscope",
+  },
+  {
+    icon: <MessageCircleHeart />,
+    path: "/app/wisdom",
+    name: "Wisdom",
+  },
+  {
+    icon: <Users />,
+    path: "/app/compatibility",
+    name: "Compatibility",
   },
 ];

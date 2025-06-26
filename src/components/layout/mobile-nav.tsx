@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
-import { NAV_ITEMS } from "@/lib/constants";
+import { NAV_ITEMS_MOBILE } from "@/lib/constants";
 
 import { Button } from "../ui/button";
 
@@ -31,7 +31,7 @@ const MobileNav = () => {
           </SheetDescription>
         </SheetHeader>
         <ul className={"h-full py-20 px-8 flex flex-col gap-y-4"}>
-          {NAV_ITEMS.map(item => (
+          {NAV_ITEMS_MOBILE.map(item => (
             <li key={item.name}>
               <Link
                 to={item.path}
