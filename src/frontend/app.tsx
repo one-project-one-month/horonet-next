@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import AppLayout from "@/frontend/layout/app-layout";
 import AuthLayout from "@/frontend/layout/auth-layout";
 import RootLayout from "@/frontend/layout/root-layout";
 import RootPage from "@/frontend/pages/_root";
@@ -18,12 +19,18 @@ const router = createBrowserRouter([
     id: "root",
     children: [
       {
-        index: true,
-        element: <RootPage />,
-      },
-      {
         path: "landing",
         element: <LandingPage />,
+      },
+      {
+        path: "app",
+        element: <AppLayout />,
+        children: [
+          {
+            path: "horoscope",
+            element: <RootPage />,
+          },
+        ],
       },
       {
         path: "auth",

@@ -1,3 +1,10 @@
+import {
+  MessageCircleHeart,
+  Sparkles,
+  User,
+  Users,
+} from "lucide-react";
+
 export const FEATURES = [
   {
     icon: "🔮",
@@ -65,5 +72,28 @@ export const REVIEWS = [
     sign: "Gemini",
     content:
       "The short quotes feature is amazing! It’s like Twitter but way more magical ✨",
+  },
+];
+
+export const NAV_ITEMS = [
+  {
+    icon: <Sparkles />,
+    path: "/app/horoscope",
+    name: "Horoscope",
+  },
+  {
+    icon: <MessageCircleHeart />,
+    path: "/app/wisdom",
+    name: "Wisdom",
+  },
+  {
+    icon: <Users />,
+    path: "/app/compatibility",
+    name: "Compatibility",
+  },
+  {
+    icon: <User />,
+    path: "/app/user/profile",
+    name: "Profile",
   },
 ];

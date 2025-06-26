@@ -38,7 +38,7 @@ const OnboardingSignPage = () => {
         <CardContent>
           <SignCard id={signId} />
           <Button asChild={true} variant={"cosmic"} className={"block mt-4 text-white font-bold "}>
-            <Link to={"/"}>Enter the Cosmic Realm</Link>
+            <Link to={"/app"}>Enter the Cosmic Realm</Link>
           </Button>
         </CardContent>
       </Card>

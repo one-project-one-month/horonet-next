@@ -12,7 +12,7 @@ import {
 
 const SignUpPage = () => {
   return (
-    <Card className="w-full max-w-[450px] bg-white/10 backdrop-blur-lg border-white/20 px-4 py-6 md:py-10  text-center">
+    <Card className="mx-6 w-full max-w-[450px] bg-white/10 backdrop-blur-lg border-white/20 px-4 py-6 md:py-10  text-center">
       <CardHeader>
         <CardTitle
           className={
