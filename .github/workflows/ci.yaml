@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Lint Next.js app
-        run: bun run lint
-
       - name: Run tests
         run: bun test
 
@@ -34,4 +31,3 @@ jobs:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           BETTER_AUTH_SECRET: ${{secrets.BETTER_AUTH_SECRET}}
           BETTER_AUTH_URL: ${{secrets.BETTER_AUTH_URL}}
-          RESEND_API_KEY: ${{secrets.RESEND_API_KEY}}

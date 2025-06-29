@@ -8,7 +8,6 @@ import { NAV_ITEMS_LARGE } from "@/lib/constants";
 
 const RootNav = () => {
   const path = usePathname();
-  console.log(path);
   return (
     <header className={"px-4 py-6 md:px-6  lg:px-10"}>
       <div className={"flex items-center justify-between"}>
