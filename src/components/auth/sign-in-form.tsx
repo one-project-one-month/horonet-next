@@ -35,7 +35,9 @@ const SignInForm = () => {
           navigate("/app/horoscope");
         },
         onError: (ctx) => {
-          toast.error("Sign In failed", { description: ctx.error.message });
+          toast.error("Sign In failed", {
+            description: `ERROR: ${ctx.error.status}, ${ctx.error.message}`,
+          });
         },
       },
     );
