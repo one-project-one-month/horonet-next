@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/onboarding",
+        path: "onboarding",
         element: <AuthLayout />,
         children: [
           // @ts-expect-error This page is super correct
