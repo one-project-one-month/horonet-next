@@ -33,7 +33,7 @@ export const decan = pgTable("decan", {
 
 export const userDetail = pgTable("user_detail", {
   userId: text()
-    .references(() => user.id)
+    .references(() => user.id, { onDelete: "cascade" })
     .primaryKey()
     .notNull(),
   birthday: date("birthday").notNull(),

@@ -32,6 +32,9 @@ const router = createBrowserRouter([
             path: "horoscope",
             element: <RootPage />,
           },
+          {
+            path: "wisdom",
+          },
         ],
       },
       {
