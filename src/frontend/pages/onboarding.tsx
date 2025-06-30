@@ -1,6 +1,5 @@
-import type { User } from "better-auth";
-
-import { useNavigate, useRouteLoaderData } from "react-router";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router";
 
 import OnboardingForm from "@/components/onboarding/onboarding-form";
 import {
@@ -14,16 +13,19 @@ import { trpc } from "@/trpc/clitent";
 
 const OnboardingPage = () => {
   const navigate = useNavigate();
-  const loader = useRouteLoaderData("root") as User;
-  if (!loader) {
-    return navigate("/landing");
-  }
-  const query = trpc.onboard.canOnboard.useQuery({ id: loader.id });
+
+  const [searchParams] = useSearchParams();
+  const uid = searchParams.get("uid") as string;
+  const query = trpc.onboard.canOnboard.useQuery({ id: uid });
+
+  useEffect(() => {
+    if (query.data && !query.data.canOnboard) {
+      navigate("/landing");
+    }
+  }, [query.data, navigate]);
+
   if (query.isLoading) {
     return <div>Loading...</div>;
-  }
-  if (query.data && !query.data.canOnboard) {
-    return navigate("/landing");
   }
   return (
     <section className={"w-full max-w-[500px]"}>
