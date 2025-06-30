@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 
 import SignCard from "@/components/onboarding/sign-card";
@@ -14,9 +15,12 @@ const OnboardingSignPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const signId = searchParams.get("sid");
-  if (!signId) {
-    return navigate("/onboarding");
-  }
+
+  useEffect(() => {
+    if (!signId) {
+      navigate("/landing");
+    }
+  }, [signId, navigate]);
 
   return (
     <section className={"w-full max-w-[500px]"}>
@@ -36,7 +40,7 @@ const OnboardingSignPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <SignCard id={signId} />
+          <SignCard id={signId!} />
           <Button
             asChild={true}
             variant={"cosmic"}

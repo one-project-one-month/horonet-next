@@ -49,9 +49,7 @@ const router = createBrowserRouter([
         path: "onboarding",
         element: <AuthLayout />,
         children: [
-          // @ts-expect-error This page is super correct
           { index: true, element: <OnboardingPage /> },
-          // @ts-expect-error This page is super correct
           { path: "sign", element: <OnboardingSignPage /> },
         ],
       },
