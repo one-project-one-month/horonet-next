@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import ErrorBoundary from "@/components/layout/error-boundary";
 import AppLayout from "@/frontend/layout/app-layout";
 import AuthLayout from "@/frontend/layout/auth-layout";
 import RootLayout from "@/frontend/layout/root-layout";
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     loader: authLoader,
+    errorElement: <ErrorBoundary />,
     id: "root",
     children: [
       {
@@ -41,7 +43,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/onboarding",
+        path: "onboarding",
         element: <AuthLayout />,
         children: [
           // @ts-expect-error This page is super correct

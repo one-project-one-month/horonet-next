@@ -37,10 +37,12 @@ const SignUpForm = () => {
       {
         onSuccess: () => {
           toast.success("Sign up successfully");
-          navigate("/onboarding");
+          navigate(`/onboarding`);
         },
         onError: (ctx) => {
-          toast.error("Sign up failed", { description: ctx.error.message });
+          toast.error("Sign In failed", {
+            description: `ERROR: ${ctx.error.status}, ${ctx.error.message}`,
+          });
         },
       },
     );

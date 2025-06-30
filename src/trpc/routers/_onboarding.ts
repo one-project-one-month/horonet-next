@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { Gender } from "@/database/enums";
 import type { CommonProcedureResult } from "@/lib/custom.types";
 
+import { user } from "@/database/auth-schema";
 import { db } from "@/database/drizzle";
 import { userDetail } from "@/database/schema";
 import { parseDate } from "@/lib/utils";
@@ -21,14 +22,26 @@ export const onboardRouter = createTRPCRouter({
       }),
     )
     .query(async (otp) => {
-      const [userInfo] = await db
-        .select()
-        .from(userDetail)
-        .where(eq(userDetail.userId, otp.input.id));
-      return {
-        data: userInfo,
-        canOnboard: !userInfo,
-      };
+      try {
+        const [userInfo] = await db
+          .select({
+            userId: user.id,
+            detailId: userDetail.userId,
+          })
+          .from(user)
+          .leftJoin(userDetail, eq(userDetail.userId, user.id))
+          .where(eq(user.id, otp.input.id));
+
+        return {
+          canOnboard: userInfo && userInfo.userId && !userInfo.detailId,
+        };
+      }
+      catch (e) {
+        console.log(e);
+        return {
+          canOnboard: false,
+        };
+      }
     }),
   onboardUser: protectedProcedure
     .input(
