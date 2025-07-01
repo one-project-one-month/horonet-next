@@ -8,7 +8,7 @@ import { trpc } from "@/trpc/clitent";
 
 export const CompatibilityPage = () => {
   const currentUser = useRouteLoaderData("root") as User;
-  const getCurrentUserSign = trpc.compatibility.getCurrentUserSign.useQuery(currentUser.id);
+  const getCurrentUserSign = trpc.compatibility.getCurrentUserSign.useQuery(currentUser.id as string);
 
   if (getCurrentUserSign.isLoading) {
     return <div>Loading...</div>;
