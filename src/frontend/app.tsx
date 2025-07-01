@@ -11,6 +11,7 @@ import OnboardingSignPage from "@/frontend/pages/onboarding-sign";
 import SignInPage from "@/frontend/pages/sign-in";
 import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
+
 import { CompatibilityPage } from "./pages/compatibility";
 
 const router = createBrowserRouter([
@@ -38,8 +39,8 @@ const router = createBrowserRouter([
           },
           {
             path: "compatibility",
-            element: <CompatibilityPage />
-          }
+            element: <CompatibilityPage />,
+          },
         ],
       },
       {
