@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { trpc } from "@/trpc/clitent";
 
 export const CompatibilityPage = () => {
-  const currentUser = useRouteLoaderData("root") as User;
+  const currentUser: User = useRouteLoaderData("root") as User;
   const getCurrentUserSign = trpc.compatibility.getCurrentUserSign.useQuery(currentUser.id as string);
 
   if (getCurrentUserSign.isLoading) {
