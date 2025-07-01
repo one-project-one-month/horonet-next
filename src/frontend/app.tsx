@@ -13,6 +13,7 @@ import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
 
 import { CompatibilityPage } from "./pages/compatibility";
+import Fire from "@/components/static-signs/fire";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "landing",
         element: <LandingPage />,
+      },
+      {
+        path: "signs/fire",
+        element: <Fire />,
       },
       {
         path: "app",
