@@ -39,6 +39,7 @@ const router = createBrowserRouter([
           },
           {
             path: "compatibility",
+            loader: authLoader,
             element: <CompatibilityPage />,
           },
         ],
