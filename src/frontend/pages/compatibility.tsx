@@ -1,14 +1,9 @@
-import type { User } from "better-auth";
-
-import { useRouteLoaderData } from "react-router";
-
 import WiseWords from "@/components/compatibility/wise-words";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/trpc/clitent";
 
 export const CompatibilityPage = () => {
-  const currentUser = useRouteLoaderData("compatibility") as User;
-  const getCurrentUserSign = trpc.compatibility.getCurrentUserSign.useQuery(currentUser.id as string);
+  const getCurrentUserSign = trpc.compatibility.getCurrentUserSign.useQuery();
 
   if (getCurrentUserSign.isLoading) {
     return <div>Loading...</div>;
