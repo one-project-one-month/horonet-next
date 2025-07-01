@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { z } from "zod";
 
 import { db } from "@/database/drizzle";
 import { decan, sign, userDetail } from "@/database/schema";
@@ -20,4 +21,18 @@ export const compatibilityRouter = createTRPCRouter({
       return result[0]?.signName;
     }),
 
+  findCompatibleSigns: protectedProcedure
+    .input(z.string())
+    .query(async ({ input }) => {
+      return `This will return signs that are compatible with ${input}`;
+    }),
+
+  findCompatiblePeople: protectedProcedure
+    .input(z.object({
+      sign: z.string(),
+      limit: z.number().nullable(),
+    }))
+    .query(async ({ input }) => {
+      return `This will return an array of ${input.sign}-compatible users with a limit of ${(input.limit && input.limit !== 0) ? input.limit : "none"}.`;
+    }),
 });
