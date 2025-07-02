@@ -98,17 +98,17 @@ const AirSigns = () => {
       <div className="mt-16 text-center">
         <h3 className="text-2xl font-semibold text-white mb-8">Explore Other Elements</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-          <Link to="/signs/fire">
+          <Link to="/signs/fire" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <Button variant="outline" className="border-red-400/30 text-red-400 hover:bg-red-400/10">
               🔥 Fire Signs
             </Button>
           </Link>
-          <Link to="/signs/earth">
+          <Link to="/signs/earth" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <Button variant="outline" className="border-green-400/30 text-green-400 hover:bg-green-400/10">
               🌍 Earth Signs
             </Button>
           </Link>
-          <Link to="/signs/water">
+          <Link to="/signs/water" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <Button variant="outline" className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10">
               🌊 Water Signs
             </Button>
