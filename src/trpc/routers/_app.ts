@@ -5,6 +5,7 @@ import { signRouter } from "@/trpc/routers/_sign";
 
 import { baseProcedure, createTRPCRouter } from "../init";
 import { compatibilityRouter } from "./_compatibility";
+import { profileRouter } from "./_profile";
 
 export const appRouter = createTRPCRouter({
   hello: baseProcedure
@@ -21,6 +22,7 @@ export const appRouter = createTRPCRouter({
   onboard: onboardRouter,
   sign: signRouter,
   compatibility: compatibilityRouter,
+  getUserData: profileRouter,
 });
 // export type definition of API
 export type AppRouter = typeof appRouter;
