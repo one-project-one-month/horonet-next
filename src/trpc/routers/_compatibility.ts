@@ -1,6 +1,7 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
+import { compatibility } from "@/database/compatibility-schema";
 import { db } from "@/database/drizzle";
 import { decan, sign, userDetail } from "@/database/schema";
 
@@ -11,6 +12,7 @@ export const compatibilityRouter = createTRPCRouter({
   getCurrentUserSign: protectedProcedure
     .query(async ({ ctx }) => {
       const result = await db.select({
+        signId: sign.id,
         signName: sign.name,
       })
         .from(userDetail)
@@ -18,13 +20,20 @@ export const compatibilityRouter = createTRPCRouter({
         .leftJoin(decan, eq(decan.id, userDetail.decanId))
         .leftJoin(sign, eq(sign.id, decan.signId));
 
-      return result[0]?.signName;
+      return result[0];
     }),
 
   findCompatibleSigns: protectedProcedure
     .input(z.string())
     .query(async ({ input }) => {
-      return `This will return signs that are compatible with ${input}`;
+      const result = await db.select({
+        compatibleSign: sign.name,
+      })
+        .from(compatibility)
+        .where(and(eq(compatibility.signId, input), eq(compatibility.type, "BEST")))
+        .leftJoin(sign, eq(sign.id, compatibility.counterpartSignId));
+
+      return result;
     }),
 
   findCompatiblePeople: protectedProcedure

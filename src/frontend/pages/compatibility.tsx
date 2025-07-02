@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { compatiblePeople } from "@/components/compatibility/compatibility-constants";
 import CompatiblePeople from "@/components/compatibility/compatible-people";
 import WiseWords from "@/components/compatibility/wise-words";
 import { Button } from "@/components/ui/button";
@@ -10,8 +9,8 @@ export const CompatibilityPage = () => {
   const [userLimit, setUserLimit] = useState<number>(10);
 
   const getCurrentUserSign = trpc.compatibility.getCurrentUserSign.useQuery();
-  const findCompatibleSigns = trpc.compatibility.findCompatibleSigns.useQuery(getCurrentUserSign.data as string);
-  const findCompatiblePeople = trpc.compatibility.findCompatiblePeople.useQuery({ sign: getCurrentUserSign.data as string, limit: userLimit }, { enabled: false });
+  const findCompatibleSigns = trpc.compatibility.findCompatibleSigns.useQuery(getCurrentUserSign.data?.signId as string);
+  const findCompatiblePeople = trpc.compatibility.findCompatiblePeople.useQuery({ sign: getCurrentUserSign.data?.signName as string, limit: userLimit }, { enabled: false });
 
   if (getCurrentUserSign.isLoading || findCompatibleSigns.isLoading) {
     return <div>Loading...</div>;
@@ -31,7 +30,7 @@ export const CompatibilityPage = () => {
 
   return (
     <div className="text-center">
-      <WiseWords sign={getCurrentUserSign.data as string} />
+      <WiseWords sign={getCurrentUserSign.data?.signName as string} />
       {/* Refactor later */}
       <Button
         className="mt-4"
@@ -51,7 +50,7 @@ export const CompatibilityPage = () => {
         {userLimit}
         <Button onClick={decreaseUserLimit}>-</Button>
       </div>
-      <CompatiblePeople peopleList={compatiblePeople} />
+      <CompatiblePeople peopleList={[]} />
     </div>
   );
 };
