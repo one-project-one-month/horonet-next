@@ -12,8 +12,12 @@ import SignInPage from "@/frontend/pages/sign-in";
 import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
 
-import { CompatibilityPage } from "./pages/compatibility";
+import { CompatibilityPage } from "./pages/compatibility";  
+import StaticSigns from "./pages/static-signs";
 import Fire from "@/components/static-signs/fire";
+import Air from "@/components/static-signs/air";
+import Water from "@/components/static-signs/water";
+import Earth from "@/components/static-signs/earth";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +32,26 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "signs/fire",
-        element: <Fire />,
+        path: "signs",
+        element: <StaticSigns />,
+        children: [
+          {
+            path: "fire",
+            element: <Fire />,
+          },
+          {
+            path: "air",
+            element: <Air />,
+          },
+          {
+            path: "water",
+            element: <Water />,
+          },
+          {
+            path: "earth",
+            element: <Earth />,
+          },
+        ],
       },
       {
         path: "app",

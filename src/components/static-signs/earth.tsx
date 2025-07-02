@@ -1,60 +1,60 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Flame } from 'lucide-react';
 import { Link } from 'react-router';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Star, ArrowLeft, Mountain } from 'lucide-react';
 import { zodiacSigns } from './zodiac';
 import SpotlightCard from './spotLightCard';
 
-const FireSigns = () => {
-  const fireSignKeys = ['aries', 'leo', 'sagittarius'];
-  const fireSignsData = fireSignKeys.map(key => zodiacSigns[key]);
-  
+const EarthSigns = () => {
+  const earthSignKeys = ['taurus', 'virgo', 'capricorn'];
+  const earthSignsData = earthSignKeys.map(key => zodiacSigns[key]);
 
   return (
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-3 mb-5">
-            <Flame className="h-12 w-12 text-red-400" />
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent leading-tight">
-              Fire Signs
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <Mountain className="h-12 w-12 text-green-400" />
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent leading-tight">
+              Earth Signs
             </h1>
-            <Flame className="h-12 w-12 text-red-400" />
+            <Mountain className="h-12 w-12 text-green-400" />
           </div>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
-            Passionate, energetic, and dynamic. Fire signs are the initiators of the zodiac, 
-            bringing enthusiasm, courage, and leadership to everything they do.
+            Practical, reliable, and grounded. Earth signs are the builders of the zodiac, 
+            bringing stability, patience, and a strong work ethic to all their endeavors.
           </p>
         </div>
 
-        {/* Fire Element Description */}
+        {/* Earth Element Description */}
         <SpotlightCard className="bg-white/10 backdrop-blur-lg border-white/20 p-8 mb-12" spotlightColor="rgba(255, 255, 255, 0.3)">
-          <h2 className="text-3xl font-semibold text-red-400 mb-6">The Fire Element</h2>
+          <h2 className="text-3xl font-semibold text-green-400 mb-6">The Earth Element</h2>
           <div className="grid md:grid-cols-2 gap-8 text-white/80">
             <div>
               <h3 className="text-xl font-semibold text-cosmic-gold mb-4">Characteristics</h3>
               <ul className="space-y-3">
-                <li>• <strong>Energy:</strong> High-spirited and vibrant</li>
-                <li>• <strong>Motivation:</strong> Action-oriented and goal-driven</li>
-                <li>• <strong>Expression:</strong> Bold and confident</li>
-                <li>• <strong>Approach:</strong> Direct and spontaneous</li>
+                <li>• <strong>Nature:</strong> Practical and methodical</li>
+                <li>• <strong>Focus:</strong> Material security and stability</li>
+                <li>• <strong>Approach:</strong> Steady and persistent</li>
+                <li>• <strong>Values:</strong> Tradition and reliability</li>
               </ul>
             </div>
             <div>
               <h3 className="text-xl font-semibold text-cosmic-gold mb-4">Strengths</h3>
               <ul className="space-y-3">
-                <li>• Natural leaders and pioneers</li>
-                <li>• Inspiring and motivational</li>
-                <li>• Brave and adventurous</li>
-                <li>• Creative and innovative</li>
+                <li>• Dependable and trustworthy</li>
+                <li>• Excellent organizers</li>
+                <li>• Patient and enduring</li>
+                <li>• Detail-oriented and thorough</li>
               </ul>
             </div>
           </div>
         </SpotlightCard>
 
-        {/* Individual Fire Signs */}
+        {/* Individual Earth Signs */}
         <div className="grid md:grid-cols-3 gap-8">
-          {fireSignsData.map((sign, index) => (
+          {earthSignsData.map((sign, index) => (
             <SpotlightCard key={sign.name} className=" relative rounded-3xl bg-white/10 border border-white/20 backdrop-blur-xl shadow-xl p-6 hover:bg-white/15 transition-all duration-300" spotlightColor="rgba(255, 255, 255, 0.3)">
               <div className="text-center">
                 <div className="text-6xl mb-4">{sign.symbol}</div>
@@ -66,7 +66,7 @@ const FireSigns = () => {
                     <h4 className="text-cosmic-gold font-semibold mb-2">Personality Traits</h4>
                     <div className="flex flex-wrap gap-2">
                       {sign.traits.map((trait, i) => (
-                        <span key={i} className="bg-red-500/20 text-red-200 px-2 py-1 rounded-full text-xs">
+                        <span key={i} className="bg-green-500/20 text-green-200 px-2 py-1 rounded-full text-xs">
                           {trait}
                         </span>
                       ))}
@@ -85,7 +85,7 @@ const FireSigns = () => {
                       <span className="text-cosmic-gold text-sm">Lucky Number:</span>
                       <span className="text-white ml-2">{sign.luckyNumber}</span>
                     </div>
-                    <div className="text-cosmic-gold text-sm">🔥 Fire</div>
+                    <div className="text-cosmic-gold text-sm">🌍 Earth</div>
                   </div>
                 </div>
               </div>
@@ -97,9 +97,9 @@ const FireSigns = () => {
         <div className="mt-16 text-center">
           <h3 className="text-2xl font-semibold text-white mb-8">Explore Other Elements</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            <Link to="/signs/earth">
-              <Button variant="outline" className="border-green-400/30 text-green-400 hover:bg-green-400/10">
-                🌍 Earth Signs
+            <Link to="/signs/fire">
+              <Button variant="outline" className="border-red-400/30 text-red-400 hover:bg-red-400/10">
+                🔥 Fire Signs
               </Button>
             </Link>
             <Link to="/signs/air">
@@ -118,4 +118,4 @@ const FireSigns = () => {
   );
 };
 
-export default FireSigns;
+export default EarthSigns;

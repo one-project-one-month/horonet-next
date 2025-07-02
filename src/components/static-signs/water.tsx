@@ -1,60 +1,59 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Flame } from 'lucide-react';
-import { Link } from 'react-router';
+import { Waves } from 'lucide-react';
 import { zodiacSigns } from './zodiac';
+import { Link } from 'react-router';
 import SpotlightCard from './spotLightCard';
 
-const FireSigns = () => {
-  const fireSignKeys = ['aries', 'leo', 'sagittarius'];
-  const fireSignsData = fireSignKeys.map(key => zodiacSigns[key]);
-  
+const WaterSigns = () => {
+  const waterSignKeys = ['cancer', 'scorpio', 'pisces'];
+  const waterSignsData = waterSignKeys.map(key => zodiacSigns[key]);
 
   return (
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-3 mb-5">
-            <Flame className="h-12 w-12 text-red-400" />
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent leading-tight">
-              Fire Signs
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <Waves className="h-12 w-12 text-cyan-400" />
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent leading-tight">
+              Water Signs
             </h1>
-            <Flame className="h-12 w-12 text-red-400" />
+            <Waves className="h-12 w-12 text-cyan-400" />
           </div>
           <p className="text-xl text-white/80 max-w-3xl mx-auto">
-            Passionate, energetic, and dynamic. Fire signs are the initiators of the zodiac, 
-            bringing enthusiasm, courage, and leadership to everything they do.
+            Emotional, intuitive, and empathetic. Water signs are the feelers of the zodiac, 
+            bringing depth, compassion, and psychic sensitivity to their connections.
           </p>
         </div>
 
-        {/* Fire Element Description */}
+        {/* Water Element Description */}
         <SpotlightCard className="bg-white/10 backdrop-blur-lg border-white/20 p-8 mb-12" spotlightColor="rgba(255, 255, 255, 0.3)">
-          <h2 className="text-3xl font-semibold text-red-400 mb-6">The Fire Element</h2>
+          <h2 className="text-3xl font-semibold text-cyan-400 mb-6">The Water Element</h2>
           <div className="grid md:grid-cols-2 gap-8 text-white/80">
             <div>
               <h3 className="text-xl font-semibold text-cosmic-gold mb-4">Characteristics</h3>
               <ul className="space-y-3">
-                <li>• <strong>Energy:</strong> High-spirited and vibrant</li>
-                <li>• <strong>Motivation:</strong> Action-oriented and goal-driven</li>
-                <li>• <strong>Expression:</strong> Bold and confident</li>
-                <li>• <strong>Approach:</strong> Direct and spontaneous</li>
+                <li>• <strong>Emotion:</strong> Deep and intuitive feelings</li>
+                <li>• <strong>Intuition:</strong> Psychic and perceptive</li>
+                <li>• <strong>Empathy:</strong> Compassionate and caring</li>
+                <li>• <strong>Creativity:</strong> Artistic and imaginative</li>
               </ul>
             </div>
             <div>
               <h3 className="text-xl font-semibold text-cosmic-gold mb-4">Strengths</h3>
               <ul className="space-y-3">
-                <li>• Natural leaders and pioneers</li>
-                <li>• Inspiring and motivational</li>
-                <li>• Brave and adventurous</li>
-                <li>• Creative and innovative</li>
+                <li>• Highly intuitive and empathetic</li>
+                <li>• Emotionally intelligent</li>
+                <li>• Deeply loyal and protective</li>
+                <li>• Creative and artistic</li>
               </ul>
             </div>
           </div>
         </SpotlightCard>
 
-        {/* Individual Fire Signs */}
+        {/* Individual Water Signs */}
         <div className="grid md:grid-cols-3 gap-8">
-          {fireSignsData.map((sign, index) => (
+          {waterSignsData.map((sign, index) => (
             <SpotlightCard key={sign.name} className=" relative rounded-3xl bg-white/10 border border-white/20 backdrop-blur-xl shadow-xl p-6 hover:bg-white/15 transition-all duration-300" spotlightColor="rgba(255, 255, 255, 0.3)">
               <div className="text-center">
                 <div className="text-6xl mb-4">{sign.symbol}</div>
@@ -66,7 +65,7 @@ const FireSigns = () => {
                     <h4 className="text-cosmic-gold font-semibold mb-2">Personality Traits</h4>
                     <div className="flex flex-wrap gap-2">
                       {sign.traits.map((trait, i) => (
-                        <span key={i} className="bg-red-500/20 text-red-200 px-2 py-1 rounded-full text-xs">
+                        <span key={i} className="bg-cyan-500/20 text-cyan-200 px-2 py-1 rounded-full text-xs">
                           {trait}
                         </span>
                       ))}
@@ -85,7 +84,7 @@ const FireSigns = () => {
                       <span className="text-cosmic-gold text-sm">Lucky Number:</span>
                       <span className="text-white ml-2">{sign.luckyNumber}</span>
                     </div>
-                    <div className="text-cosmic-gold text-sm">🔥 Fire</div>
+                    <div className="text-cosmic-gold text-sm">🌊 Water</div>
                   </div>
                 </div>
               </div>
@@ -107,9 +106,9 @@ const FireSigns = () => {
                 💨 Air Signs
               </Button>
             </Link>
-            <Link to="/signs/water">
+            <Link to="/signs/fire">
               <Button variant="outline" className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10">
-                🌊 Water Signs
+              🔥 Fire Signs
               </Button>
             </Link>
           </div>
@@ -118,4 +117,4 @@ const FireSigns = () => {
   );
 };
 
-export default FireSigns;
+export default WaterSigns;
