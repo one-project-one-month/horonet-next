@@ -1,10 +1,12 @@
-import { useRef, useState, MouseEvent, FocusEvent, ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
-interface SpotlightCardProps {
+import { useRef, useState } from "react";
+
+type SpotlightCardProps = {
   children: ReactNode;
   className?: string;
   spotlightColor?: string;
-}
+};
 
 const SpotlightCard = ({
   children,
@@ -17,7 +19,8 @@ const SpotlightCard = ({
   const [opacity, setOpacity] = useState(0);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!divRef.current || isFocused) return;
+    if (!divRef.current || isFocused)
+      return;
 
     const rect = divRef.current.getBoundingClientRect();
     setPosition({
@@ -26,12 +29,12 @@ const SpotlightCard = ({
     });
   };
 
-  const handleFocus = (e: FocusEvent<HTMLDivElement>) => {
+  const handleFocus = () => {
     setIsFocused(true);
     setOpacity(0.6);
   };
 
-  const handleBlur = (e: FocusEvent<HTMLDivElement>) => {
+  const handleBlur = () => {
     setIsFocused(false);
     setOpacity(0);
   };
@@ -41,7 +44,8 @@ const SpotlightCard = ({
   };
 
   const handleMouseLeave = () => {
-    if (!isFocused) setOpacity(0);
+    if (!isFocused)
+      setOpacity(0);
   };
 
   return (

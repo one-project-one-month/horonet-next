@@ -1,6 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import ErrorBoundary from "@/components/layout/error-boundary";
+import Air from "@/components/static-signs/air";
+import Earth from "@/components/static-signs/earth";
+import Fire from "@/components/static-signs/fire";
+import Water from "@/components/static-signs/water";
 import AppLayout from "@/frontend/layout/app-layout";
 import AuthLayout from "@/frontend/layout/auth-layout";
 import RootLayout from "@/frontend/layout/root-layout";
@@ -12,12 +16,8 @@ import SignInPage from "@/frontend/pages/sign-in";
 import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
 
-import { CompatibilityPage } from "./pages/compatibility";  
+import { CompatibilityPage } from "./pages/compatibility";
 import StaticSigns from "./pages/static-signs";
-import Fire from "@/components/static-signs/fire";
-import Air from "@/components/static-signs/air";
-import Water from "@/components/static-signs/water";
-import Earth from "@/components/static-signs/earth";
 
 const router = createBrowserRouter([
   {
