@@ -3,9 +3,9 @@ import React from "react";
 import { Link } from "react-router";
 
 import { Button } from "@/components/ui/button";
+import { zodiacSigns } from "@/lib/constants";
 
 import SpotlightCard from "./spit-light-card";
-import { zodiacSigns } from "./zodiac";
 
 const FireSigns = () => {
   const fireSignKeys = ["aries", "leo", "sagittarius"];
