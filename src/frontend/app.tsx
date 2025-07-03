@@ -1,6 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import ErrorBoundary from "@/components/layout/error-boundary";
+import Air from "@/components/static-signs/air";
+import Earth from "@/components/static-signs/earth";
+import Fire from "@/components/static-signs/fire";
+import Water from "@/components/static-signs/water";
 import AppLayout from "@/frontend/layout/app-layout";
 import AuthLayout from "@/frontend/layout/auth-layout";
 import RootLayout from "@/frontend/layout/root-layout";
@@ -13,6 +17,7 @@ import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
 
 import { CompatibilityPage } from "./pages/compatibility";
+import StaticSigns from "./pages/static-signs";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +30,28 @@ const router = createBrowserRouter([
       {
         path: "landing",
         element: <LandingPage />,
+      },
+      {
+        path: "signs",
+        element: <StaticSigns />,
+        children: [
+          {
+            path: "fire",
+            element: <Fire />,
+          },
+          {
+            path: "air",
+            element: <Air />,
+          },
+          {
+            path: "water",
+            element: <Water />,
+          },
+          {
+            path: "earth",
+            element: <Earth />,
+          },
+        ],
       },
       {
         path: "app",
