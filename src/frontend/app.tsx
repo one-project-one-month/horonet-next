@@ -12,6 +12,7 @@ import RootPage from "@/frontend/pages/_root";
 import LandingPage from "@/frontend/pages/landing";
 import OnboardingPage from "@/frontend/pages/onboarding";
 import OnboardingSignPage from "@/frontend/pages/onboarding-sign";
+import ProfilePage from "@/frontend/pages/profile";
 import SignInPage from "@/frontend/pages/sign-in";
 import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
           { index: true, element: <OnboardingPage /> },
           { path: "sign", element: <OnboardingSignPage /> },
         ],
+      },
+      {
+        path: "/app/user/profile",
+        element: <ProfilePage />,
       },
     ],
   },
