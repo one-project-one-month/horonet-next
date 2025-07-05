@@ -140,14 +140,40 @@
     height: 2px;
     background: white;
     border-radius: 50%;
+    z-index: -1;
     animation: twinkle 2s ease-in-out infinite;
   }
-
   .cosmic-star:nth-child(2n) {
     animation-delay: 1s;
   }
-
   .cosmic-star:nth-child(3n) {
     animation-delay: 0.5s;
+  }
+
+  .float {
+    animation: float 3s ease-in-out infinite;
+    transform: translateY(10px);
+  }
+
+  /* ------------------- Keyframes animation ----------------------- */
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(-10px);
+    }
+    50% {
+      transform: translateY(10px);
+    }
   }
 }

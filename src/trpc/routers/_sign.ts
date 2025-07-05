@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { db } from "@/database/drizzle";
 import { decan, sign } from "@/database/schema";
+import { sleep } from "@/lib/utils";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 
 export const signRouter = createTRPCRouter({
@@ -13,6 +14,7 @@ export const signRouter = createTRPCRouter({
       }),
     )
     .query(async (opt) => {
+      await sleep(3000);
       const [signInfo] = await db
         .select({
           name: sign.name,
