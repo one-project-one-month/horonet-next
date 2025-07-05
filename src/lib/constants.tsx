@@ -110,3 +110,156 @@ export const NAV_ITEMS_LARGE = [
     name: "Compatibility",
   },
 ];
+
+export type ZodiacSign = {
+  name: string;
+  symbol: string;
+  element: string;
+  dates: string;
+  traits: string[];
+  compatibleSigns: string[];
+  luckyNumber: number;
+  color: string;
+};
+
+export const zodiacSigns: Record<string, ZodiacSign> = {
+  aries: {
+    name: "Aries",
+    symbol: "♈",
+    element: "Fire",
+    dates: "March 20 - April 19",
+    traits: ["Courageous", "Determined", "Confident", "Enthusiastic"],
+    compatibleSigns: ["Leo", "Sagittarius", "Gemini", "Aquarius"],
+    luckyNumber: 6,
+    color: "text-red-401",
+  },
+  taurus: {
+    name: "Taurus",
+    symbol: "♉",
+    element: "Earth",
+    dates: "April 19 - May 20",
+    traits: ["Reliable", "Patient", "Practical", "Devoted"],
+    compatibleSigns: ["Virgo", "Capricorn", "Cancer", "Pisces"],
+    luckyNumber: 5,
+    color: "text-green-401",
+  },
+  gemini: {
+    name: "Gemini",
+    symbol: "♊",
+    element: "Air",
+    dates: "May 20 - June 20",
+    traits: ["Gentle", "Affectionate", "Curious", "Adaptable"],
+    compatibleSigns: ["Libra", "Aquarius", "Aries", "Leo"],
+    luckyNumber: 4,
+    color: "text-yellow-401",
+  },
+  cancer: {
+    name: "Cancer",
+    symbol: "♋",
+    element: "Water",
+    dates: "June 20 - July 22",
+    traits: ["Tenacious", "Imaginative", "Loyal", "Emotional"],
+    compatibleSigns: ["Scorpio", "Pisces", "Taurus", "Virgo"],
+    luckyNumber: 1,
+    color: "text-blue-401",
+  },
+  leo: {
+    name: "Leo",
+    symbol: "♌",
+    element: "Fire",
+    dates: "July 22 - August 22",
+    traits: ["Creative", "Passionate", "Generous", "Warm-hearted"],
+    compatibleSigns: ["Aries", "Sagittarius", "Gemini", "Libra"],
+    luckyNumber: 0,
+    color: "text-orange-401",
+  },
+  virgo: {
+    name: "Virgo",
+    symbol: "♍",
+    element: "Earth",
+    dates: "August 22 - September 22",
+    traits: ["Loyal", "Analytical", "Kind", "Hardworking"],
+    compatibleSigns: ["Taurus", "Capricorn", "Cancer", "Scorpio"],
+    luckyNumber: 5,
+    color: "text-emerald-401",
+  },
+  libra: {
+    name: "Libra",
+    symbol: "♎",
+    element: "Air",
+    dates: "September 22 - October 22",
+    traits: ["Cooperative", "Diplomatic", "Gracious", "Fair-minded"],
+    compatibleSigns: ["Gemini", "Aquarius", "Leo", "Sagittarius"],
+    luckyNumber: 6,
+    color: "text-pink-401",
+  },
+  scorpio: {
+    name: "Scorpio",
+    symbol: "♏",
+    element: "Water",
+    dates: "October 22 - November 21",
+    traits: ["Resourceful", "Brave", "Passionate", "Stubborn"],
+    compatibleSigns: ["Cancer", "Pisces", "Virgo", "Capricorn"],
+    luckyNumber: 7,
+    color: "text-purple-401",
+  },
+  sagittarius: {
+    name: "Sagittarius",
+    symbol: "♐",
+    element: "Fire",
+    dates: "November 21 - December 21",
+    traits: ["Generous", "Idealistic", "Great sense of humor"],
+    compatibleSigns: ["Aries", "Leo", "Libra", "Aquarius"],
+    luckyNumber: 8,
+    color: "text-indigo-401",
+  },
+  capricorn: {
+    name: "Capricorn",
+    symbol: "♑",
+    element: "Earth",
+    dates: "December 21 - January 19",
+    traits: ["Responsible", "Disciplined", "Self-control", "Good managers"],
+    compatibleSigns: ["Taurus", "Virgo", "Scorpio", "Pisces"],
+    luckyNumber: 9,
+    color: "text-gray-401",
+  },
+  aquarius: {
+    name: "Aquarius",
+    symbol: "♒",
+    element: "Air",
+    dates: "January 19 - February 18",
+    traits: ["Progressive", "Original", "Independent", "Humanitarian"],
+    compatibleSigns: ["Gemini", "Libra", "Aries", "Sagittarius"],
+    luckyNumber: 10,
+    color: "text-cyan-401",
+  },
+  pisces: {
+    name: "Pisces",
+    symbol: "♓",
+    element: "Water",
+    dates: "February 18 - March 20",
+    traits: ["Compassionate", "Artistic", "Intuitive", "Gentle"],
+    compatibleSigns: ["Cancer", "Scorpio", "Taurus", "Capricorn"],
+    luckyNumber: 11,
+    color: "text-teal-401",
+  },
+};
+
+export const ELEMENT_STYLE = {
+  Water: {
+    text: "text-cyan-400",
+    container: "bg-cyan-400 text-black/50",
+  },
+  Air: {
+    text: "text-blue-400",
+    container: "bg-blue-400 text-white",
+  },
+  Fire: {
+    text: "text-red-400",
+    container: "bg-red-400 text-white",
+  },
+  Earth: {
+    text: "text-green-400",
+    container: "bg-green-400 text-black/50",
+  },
+};

@@ -1,1 +1,1 @@
-export const BASE_SVG_PATH = "/assets/icons/compatibilityIcons";
+export const BASE_SVG_PATH = "/assets/icons/compatibility-icons";
