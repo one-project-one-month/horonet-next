@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
+import LoadingSpinner from "@/components/common/loading-spinner";
 import OnboardingForm from "@/components/onboarding/onboarding-form";
 import {
   Card,
@@ -25,30 +26,39 @@ const OnboardingPage = () => {
   }, [query.data, navigate]);
 
   if (query.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={"w-full max-w-[500px] "}>
+        <LoadingSpinner />;
+        <h2 className={"mt-16 text-2xl text-white font-bold text-center"}>
+          Connecting to the Cosmos...
+        </h2>
+        <p className={"text-white/40 text-center"}>
+          The stars are aligning your experience
+        </p>
+      </div>
+    );
   }
+
   return (
-    <section className={"w-full max-w-[500px]"}>
-      <Card className="bg-white/10 backdrop-blur-lg border-white/20 px-4 py-6 md:py-10  text-center">
-        <CardHeader>
-          <CardTitle
-            className={
-              "text-3xl bg-gradient-to-r from-cosmic-gold via-cosmic-starlight to-cosmic-purple bg-clip-text text-transparent"
-            }
-          >
-            🌟 Cosmic Connection
-          </CardTitle>
-          <CardDescription
-            className={"max-w-[380px] mx-auto text-white/70 text-base"}
-          >
-            Tell us about yourself to begin your celestial journey
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <OnboardingForm />
-        </CardContent>
-      </Card>
-    </section>
+    <Card className="w-full max-w-[500px] bg-white/10 backdrop-blur-lg border-white/20 px-4 py-6 md:py-10  text-center">
+      <CardHeader>
+        <CardTitle
+          className={
+            "text-3xl bg-gradient-to-r from-cosmic-gold via-cosmic-starlight to-cosmic-purple bg-clip-text text-transparent"
+          }
+        >
+          🌟 Cosmic Connection
+        </CardTitle>
+        <CardDescription
+          className={"max-w-[380px] mx-auto text-white/70 text-base"}
+        >
+          Tell us about yourself to begin your celestial journey
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <OnboardingForm />
+      </CardContent>
+    </Card>
   );
 };
 
