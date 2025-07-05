@@ -13,13 +13,24 @@ import Scorpio from "./_scorpio";
 import Taurus from "./_taurus";
 import Virgo from "./_virgo";
 
-const signsIcons = { Aquarius, Aries, Cancer, Capricorn, Gemini, Leo, Libra, Pisces, Sagittarius, Scorpio, Taurus, Virgo };
+const signsIcons = {
+  Aquarius,
+  Aries,
+  Cancer,
+  Capricorn,
+  Gemini,
+  Leo,
+  Libra,
+  Pisces,
+  Sagittarius,
+  Scorpio,
+  Taurus,
+  Virgo,
+};
 
 function getIconFromSign(sign: TZodiacSigns) {
-  return (
-    signsIcons[sign]
-  );
-};
+  return signsIcons[sign];
+}
 
 export {
   Aquarius,
