@@ -446,3 +446,5 @@ export const DECANS = [
     traits: ["Introspective", "Transformative", "Spiritual"],
   },
 ];
+
+export const STAR_DUSTS = ["Nebula", ""];

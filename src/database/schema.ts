@@ -84,20 +84,20 @@ export const wisdom = pgTable("wisdom", {
 /*
  * StarDust Table is a master data table.
  */
-export const starDust = pgTable("starDust", {
+export const stardust = pgTable("starDust", {
   id: uuid().notNull().primaryKey().defaultRandom().unique(),
   type: startDustEnum("type").notNull(),
 });
 
 export const wisdomStardust = pgTable(
-  "wisdomStardust",
+  "wisdom_stardust",
   {
     wisdomId: uuid()
       .notNull()
       .references(() => wisdom.id, { onDelete: "cascade" }),
     startDustId: uuid()
       .notNull()
-      .references(() => starDust.id, { onDelete: "cascade" }),
+      .references(() => stardust.id, { onDelete: "cascade" }),
     senderId: text()
       .notNull()
       .references(() => user.id),
@@ -119,7 +119,7 @@ export const gift = pgTable("gift", {
 });
 
 export const userGift = pgTable(
-  "userGift",
+  "user_gift",
   {
     receiverId: text()
       .notNull()
