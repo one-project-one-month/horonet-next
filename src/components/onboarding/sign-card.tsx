@@ -1,9 +1,9 @@
 import type { TZodiacSigns } from "@/lib/custom.types";
 
 import LoadingSpinner from "@/components/common/loading-spinner";
+import { getIconFromSign } from "@/components/svg-icons/zodiac-signs";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getIconFromSign } from "@/components/zodiac-signs";
 import { ELEMENT_STYLE } from "@/lib/constants";
 import { cn, parseToDate } from "@/lib/utils";
 import { trpc } from "@/trpc/clitent";

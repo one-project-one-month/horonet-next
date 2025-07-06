@@ -6,9 +6,9 @@ import type { TZodiacSigns } from "@/lib/custom.types";
 
 import type { CompatiblePeopleInfo, CompatibleSignsInfo } from "./compatibility-custom-types";
 
+import { getIconFromSign } from "../svg-icons/zodiac-signs";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import { getIconFromSign } from "../zodiac-signs";
 import { BASE_SVG_PATH } from "./compatibility-constants";
 
 const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: CompatiblePeopleInfo[]; compatibleSignsInfo: CompatibleSignsInfo[] }) => {
