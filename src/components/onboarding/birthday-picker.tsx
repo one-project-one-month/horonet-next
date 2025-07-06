@@ -39,7 +39,7 @@ const BirthdayPicker = ({ onChange, value }: BirthdayPickerProps) => {
   const [open, setOpen] = useState(false);
 
   const [month, setMonth] = useState<Date | undefined>(value);
-  const [currDate, setCurrDate] = useState(formatDate(value));
+  const [currDate, setCurrDate] = useState(() => formatDate(value));
 
   return (
     <div className="flex flex-col gap-3">

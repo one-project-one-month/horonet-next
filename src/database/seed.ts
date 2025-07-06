@@ -4,8 +4,9 @@ import { DECANS, SIGNS } from "@/database/source";
 
 try {
   console.log("Seeding Start....");
-  await db.delete(sign);
+
   await db.delete(decan);
+  await db.delete(sign);
 
   const signs = SIGNS.map(async (item) => {
     const res = await db
@@ -34,6 +35,7 @@ try {
   });
 
   await Promise.all(decans);
+
   console.log("Seeding End....");
 }
 catch (e) {

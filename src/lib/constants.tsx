@@ -244,3 +244,22 @@ export const zodiacSigns: Record<string, ZodiacSign> = {
     color: "text-teal-401",
   },
 };
+
+export const ELEMENT_STYLE = {
+  Water: {
+    text: "text-cyan-400",
+    container: "bg-cyan-400 text-black/50",
+  },
+  Air: {
+    text: "text-blue-400",
+    container: "bg-blue-400 text-white",
+  },
+  Fire: {
+    text: "text-red-400",
+    container: "bg-red-400 text-white",
+  },
+  Earth: {
+    text: "text-green-400",
+    container: "bg-green-400 text-black/50",
+  },
+};
