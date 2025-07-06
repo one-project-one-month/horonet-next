@@ -5,6 +5,7 @@ import Air from "@/components/static-signs/air";
 import Earth from "@/components/static-signs/earth";
 import Fire from "@/components/static-signs/fire";
 import Water from "@/components/static-signs/water";
+import UserProfilePage from "@/components/user-profile";
 import AppLayout from "@/frontend/layout/app-layout";
 import AuthLayout from "@/frontend/layout/auth-layout";
 import RootLayout from "@/frontend/layout/root-layout";
@@ -69,6 +70,13 @@ const router = createBrowserRouter([
             path: "compatibility",
             element: <CompatibilityPage />,
           },
+          {
+            path: "user",
+            children: [
+              { path: "profile", element: <ProfilePage /> },
+              { path: ":userId", element: <UserProfilePage /> },
+            ],
+          },
         ],
       },
       {
@@ -86,10 +94,6 @@ const router = createBrowserRouter([
           { index: true, element: <OnboardingPage /> },
           { path: "sign", element: <OnboardingSignPage /> },
         ],
-      },
-      {
-        path: "/app/user/profile",
-        element: <ProfilePage />,
       },
     ],
   },

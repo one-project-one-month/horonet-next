@@ -3,7 +3,7 @@ import React from "react";
 
 import type { TZodiacSigns } from "@/lib/custom.types";
 
-import { getIconFromSign } from "../zodiac-signs";
+import { getIconFromSign } from "../svg-icons/zodiac-signs";
 
 type TQuoteProps = {
   name: string;
@@ -15,14 +15,12 @@ type TQuoteProps = {
 };
 
 export default function Quote({ name, date, sign, quote, totalCookie, totalRose }: TQuoteProps) {
+  const SignIcon = getIconFromSign(sign);
   return (
     <div className="px-3 py-5 bg-cosmic-purple/30 backdrop-blur-xs rounded-md border-cosmic-purple border">
       <div className="flex gap-2 md:gap-3">
         <div className="text-3xl shrink-0 self-start">
-          {
-            React.createElement(getIconFromSign(sign), { className: "size-8 bg-cosmic-gold rounded-full p-1" })
-          }
-          {/* <Scorpio className="size-8 bg-cosmic-gold rounded-full p-1" /> */}
+          <SignIcon className="size-8 bg-cosmic-gold rounded-full p-1" />
         </div>
         <div className="">
           <h1 className="text-lg font-bold w-max inline-block">{name}</h1>

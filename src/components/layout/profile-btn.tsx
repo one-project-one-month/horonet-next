@@ -1,3 +1,4 @@
+import { PopoverClose } from "@radix-ui/react-popover";
 import { LogOut, User } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 
@@ -24,29 +25,33 @@ const ProfileBtn = () => {
       </PopoverTrigger>
       <PopoverContent className={"w-fit mt-2 mr-8 bg-[#1e1b4b] border-0"}>
         <div className={"flex flex-col gap-y-2"}>
-          <Button asChild={true} className={"max-w-[150px]"}>
-            <Link
-              to={"/app/user/profile"}
-              className={"flex items-center gap-x-1.5"}
+          <PopoverClose asChild>
+            <Button asChild={true} className={"max-w-[150px] bg-cosmic-gold"}>
+              <Link
+                to={"/app/user/profile"}
+                className={"flex items-center gap-x-1.5"}
+              >
+                <User />
+                <span>Profile</span>
+              </Link>
+            </Button>
+          </PopoverClose>
+          <PopoverClose asChild>
+            <Button
+              asChild={true}
+              variant={"destructive"}
+              className={"max-w-[150px]"}
+              onClick={async () => {
+                await authClient.signOut();
+                navigate("/landing");
+              }}
             >
-              <User />
-              <span>Profile</span>
-            </Link>
-          </Button>
-          <Button
-            asChild={true}
-            variant={"destructive"}
-            className={"max-w-[150px]"}
-            onClick={async () => {
-              await authClient.signOut();
-              navigate("/landing");
-            }}
-          >
-            <div className={"flex items-center gap-x-1.5 cursor-pointer"}>
-              <LogOut />
-              <span>Logout</span>
-            </div>
-          </Button>
+              <div className={"flex items-center gap-x-1.5 cursor-pointer"}>
+                <LogOut />
+                <span>Logout</span>
+              </div>
+            </Button>
+          </PopoverClose>
         </div>
       </PopoverContent>
     </Popover>
