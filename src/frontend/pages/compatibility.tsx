@@ -2,12 +2,11 @@ import { useState } from "react";
 
 import type { CompatiblePeopleInfo, CompatibleSignsInfo } from "@/components/compatibility/compatibility-custom-types";
 
+import LoadingSpinner from "@/components/common/loading-spinner";
 import CompatiblePeople from "@/components/compatibility/compatible-people";
 import WiseWords from "@/components/compatibility/wise-words";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/trpc/clitent";
-
-;
 
 export const CompatibilityPage = () => {
   const [page, setPage] = useState<number>(0);
@@ -16,7 +15,7 @@ export const CompatibilityPage = () => {
   const findCompatiblePeople = trpc.compatibility.findCompatiblePeople.useQuery({
     compatibleSignIds: findCompatibleSigns.data?.map((d) => { return d.compatibleSignId; }) as string[],
     page,
-    limit: 3,
+    limit: 6,
   }, { enabled: true });
 
   // Dynamic {enabled} based on userLimitParam to stop it from fetching on initial render.
@@ -24,7 +23,18 @@ export const CompatibilityPage = () => {
   // Used a second state called 'userLimitParam' to trigger fetch.
 
   if (getCurrentUserSign.isLoading || findCompatibleSigns.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className={
+          "w-full py-16 mt-5"
+        }
+      >
+        <LoadingSpinner />
+        <h2 className={"mt-16 text-2xl text-white font-bold text-center"}>
+          Let me have a look...
+        </h2>
+      </div>
+    );
   }
 
   const prevPage = () => {
@@ -40,23 +50,36 @@ export const CompatibilityPage = () => {
   return (
     <div className="text-center">
       <WiseWords sign={getCurrentUserSign.data?.signName as string} />
-      {
-        findCompatiblePeople.isLoading || findCompatiblePeople.isFetching
-          ? (
-              <div>
-                Finding...
-              </div>
-            )
-          : (
-              <div className="container mx-auto">
-                <CompatiblePeople peopleList={findCompatiblePeople.data?.compatiblePeople as CompatiblePeopleInfo[]} compatibleSignsInfo={findCompatibleSigns.data as CompatibleSignsInfo[]} />
-                <div className="flex justify-center gap-16 mt-6">
-                  <Button variant={"cosmic"} disabled={!findCompatiblePeople.data?.hasPrev} onClick={prevPage}>Prev</Button>
-                  <Button variant={"cosmic"} disabled={!findCompatiblePeople.data?.hasNext} onClick={nextPage}>Next</Button>
+
+      <div className="container mx-auto bg-white/10 border-white/20 backdrop-blur-lg rounded-md p-3 mt-8">
+        {
+          findCompatiblePeople.isLoading || findCompatiblePeople.isFetching
+            ? (
+                <div
+                  className={
+                    "w-full py-16 mt-5"
+                  }
+                >
+                  <LoadingSpinner />
+                  <h2 className={"mt-16 text-2xl text-white font-bold text-center"}>
+                    Gliding through the cosmos...
+                  </h2>
+                  <p className={"text-white/40 text-center"}>
+                    How shall your stars align?
+                  </p>
                 </div>
-              </div>
-            )
-      }
+              )
+            : (
+                <div>
+                  <CompatiblePeople peopleList={findCompatiblePeople.data?.compatiblePeople as CompatiblePeopleInfo[]} compatibleSignsInfo={findCompatibleSigns.data as CompatibleSignsInfo[]} />
+                  <div className="flex justify-center gap-16 mt-6">
+                    <Button variant={"cosmic"} disabled={!findCompatiblePeople.data?.hasPrev} onClick={prevPage}>Prev</Button>
+                    <Button variant={"cosmic"} disabled={!findCompatiblePeople.data?.hasNext} onClick={nextPage}>Next</Button>
+                  </div>
+                </div>
+              )
+        }
+      </div>
     </div>
   );
 };
