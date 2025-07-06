@@ -79,7 +79,11 @@ const ErrorBoundary = () => {
   else if (error instanceof Error) {
     return (
       <ErrorBoundaryLayout>
-        <ErrorCard message={error.name} description={error.message} />
+        <ErrorCard
+          // @ts-expect-error This type is correct
+          message={error.cause?.reason ?? error.name}
+          description={error.message}
+        />
       </ErrorBoundaryLayout>
     );
   }

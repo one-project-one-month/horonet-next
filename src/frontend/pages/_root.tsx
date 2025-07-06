@@ -1,11 +1,30 @@
+import LoadingSpinner from "@/components/common/loading-spinner";
 import HoroscopeDaily from "@/components/horoscope/horoscope-daily";
 import HoroscopeMonthly from "@/components/horoscope/horoscope-monthly";
 import HoroscopeWeekly from "@/components/horoscope/horoscope-weekly";
-import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { trpc } from "@/trpc/clitent";
 
 const RootPage = () => {
-  // const query = trpc.compatibility.getCurrentUserSign.useQuery();
+  const query = trpc.compatibility.getCurrentUserSign.useQuery();
+
+  if (query.isLoading) {
+    return (
+      <div className={"w-full py-52 "}>
+        <LoadingSpinner />
+        <h2 className={"mt-16 text-2xl text-white font-bold text-center"}>
+          Connecting to the Cosmos...
+        </h2>
+        <p className={"text-white/40 text-center"}>
+          The stars are aligning your experience
+        </p>
+      </div>
+    );
+  }
+
+  if (!query.data) {
+    throw new Error("No data provided");
+  }
 
   return (
     <div className={"px-4 py-6 md:px-6 lg:px-10"}>
@@ -30,17 +49,15 @@ const RootPage = () => {
             Monthly
           </TabsTrigger>
         </TabsList>
-        <Card className="bg-white/10 border-white/20 backdrop-blur-lg rounded-md mt-5 p-6">
-          <TabsContent value="daily">
-            <HoroscopeDaily />
-          </TabsContent>
-          <TabsContent value="weekly">
-            <HoroscopeWeekly />
-          </TabsContent>
-          <TabsContent value="monthly">
-            <HoroscopeMonthly />
-          </TabsContent>
-        </Card>
+        <TabsContent value="daily">
+          <HoroscopeDaily sign={query.data?.signName} />
+        </TabsContent>
+        <TabsContent value="weekly">
+          <HoroscopeWeekly sign={query.data?.signName} />
+        </TabsContent>
+        <TabsContent value="monthly">
+          <HoroscopeMonthly sign={query.data?.signName} />
+        </TabsContent>
       </Tabs>
     </div>
   );

@@ -65,3 +65,36 @@ export const OnboardingSchema = z.object({
 });
 
 export type OnboardingSchemaType = z.infer<typeof OnboardingSchema>;
+
+export const horoscopeDaily = z.object({
+  data: z.object({
+    horoscope_data: z.string().min(10),
+    date: z.string().min(5),
+  }),
+  status: z.number().positive(),
+  success: z.boolean(),
+});
+
+export type THoroscopeDaily = z.infer<typeof horoscopeDaily>;
+
+export const horoscopeWeekly = z.object({
+  data: z.object({
+    horoscope_data: z.string().min(10),
+    week: z.string().min(5),
+  }),
+  status: z.number().positive(),
+  success: z.boolean(),
+});
+
+export type THoroscopeWeekly = z.infer<typeof horoscopeWeekly>;
+
+export const horoscopeMonthly = z.object({
+  data: z.object({
+    horoscope_data: z.string().min(10),
+    month: z.string().min(5),
+    challenging_days: z.string().min(5),
+    standout_days: z.string().min(5),
+  }),
+  status: z.number().positive(),
+  success: z.boolean(),
+});

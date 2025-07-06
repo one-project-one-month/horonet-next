@@ -24,3 +24,7 @@ export const parseToDate = (dateShard: string) => {
 
 export const sleep = (ms: number) =>
   new Promise(resolve => setTimeout(resolve, ms));
+
+export const parseDateFromNum = (date: string) => {
+  return format(set(new Date(), { date: Number.parseInt(date) }), "do MMMM");
+};

@@ -1,10 +1,16 @@
+import { TRPCError } from "@trpc/server";
 import axios from "axios";
 import { z } from "zod";
 
+import {
+  horoscopeDaily,
+  horoscopeMonthly,
+  horoscopeWeekly,
+} from "@/database/validators";
+
 import { baseProcedure, createTRPCRouter } from "../init";
 
-const BASE_URL
-  = "'https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily";
+const BASE_URL = "https://horoscope-app-api.vercel.app/api/v1/get-horoscope";
 
 export const horoscopeRouter = createTRPCRouter({
   daily: baseProcedure
@@ -14,12 +20,17 @@ export const horoscopeRouter = createTRPCRouter({
       }),
     )
     .query(async (opts) => {
-      console.log(opts);
       const response = await axios.get(
         `${BASE_URL}/daily?sign=${opts.input.sign}&day=TODAY`,
       );
-      console.log(response);
-      return response.data;
+      const parsedResponse = horoscopeDaily.safeParse(response.data);
+      if (!parsedResponse.success) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Error Fetching Horoscope data",
+        });
+      }
+      return parsedResponse.data.data;
     }),
   weekly: baseProcedure
     .input(
@@ -31,7 +42,14 @@ export const horoscopeRouter = createTRPCRouter({
       const response = await axios.get(
         `${BASE_URL}/weekly?sign=${opts.input.sign}`,
       );
-      return response.data;
+      const parsedResponse = horoscopeWeekly.safeParse(response.data);
+      if (!parsedResponse.success) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Error Fetching Horoscope data",
+        });
+      }
+      return parsedResponse.data.data;
     }),
   monthly: baseProcedure
     .input(
@@ -43,6 +61,13 @@ export const horoscopeRouter = createTRPCRouter({
       const response = await axios.get(
         `${BASE_URL}/monthly?sign=${opts.input.sign}`,
       );
-      return response.data;
+      const parsedResponse = horoscopeMonthly.safeParse(response.data);
+      if (!parsedResponse.success) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Error Fetching Horoscope data",
+        });
+      }
+      return parsedResponse.data.data;
     }),
 });
