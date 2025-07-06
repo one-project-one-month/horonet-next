@@ -2,9 +2,8 @@ import { and, eq, or, sql } from "drizzle-orm";
 import { z } from "zod";
 
 import { user } from "@/database/auth-schema";
-import { compatibility } from "@/database/compatibility-schema";
 import { db } from "@/database/drizzle";
-import { decan, sign, userDetail } from "@/database/schema";
+import { compatibility, decan, sign, userDetail } from "@/database/schema";
 
 import { createTRPCRouter, protectedProcedure } from "../init";
 

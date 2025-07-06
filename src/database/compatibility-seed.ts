@@ -1,7 +1,7 @@
 import { db } from "@/database/drizzle";
 
-import { compatibility } from "./compatibility-schema";
 import { COMPATIBILITY_DATA } from "./compatibility-source";
+import { compatibility } from "./schema";
 
 try {
   console.log("Seeding Compatibility data....");
@@ -24,19 +24,21 @@ try {
 
     await Promise.all(bestMatches);
 
-    const challengingMatches = item.challengingMatches.map(async (challenging) => {
-      const res = await db
-        .insert(compatibility)
-        .values({
-          signId: item.sign,
-          counterpartSignId: challenging.sign,
-          type: "CHALLENGING",
-          score: challenging.score,
-          desc: challenging.title,
-        })
-        .returning();
-      return res;
-    });
+    const challengingMatches = item.challengingMatches.map(
+      async (challenging) => {
+        const res = await db
+          .insert(compatibility)
+          .values({
+            signId: item.sign,
+            counterpartSignId: challenging.sign,
+            type: "CHALLENGING",
+            score: challenging.score,
+            desc: challenging.title,
+          })
+          .returning();
+        return res;
+      },
+    );
 
     return await Promise.all(challengingMatches);
   });
