@@ -1,6 +1,7 @@
-import type { TZodiacSigns } from "@/lib/custom.types";
+import type { TPlanetSigns, TZodiacSigns } from "@/lib/custom.types";
 
 import LoadingSpinner from "@/components/common/loading-spinner";
+import { getPlanetFromSign } from "@/components/svg-icons/planet-signs";
 import { getIconFromSign } from "@/components/svg-icons/zodiac-signs";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,6 +23,7 @@ const SignCard = ({ id }: { id: string }) => {
     );
   }
   const SignIcon = getIconFromSign(query.data.name as TZodiacSigns);
+  const PalnetIcon = getPlanetFromSign(query.data.rulingPlanet as TPlanetSigns);
   return (
     <div>
       <div className={"mb-5"}>
@@ -49,8 +51,9 @@ const SignCard = ({ id }: { id: string }) => {
           </li>
           <li className={"flex items-center justify-between"}>
             <span className={"text-white/60"}>Ruling Planet:</span>
-            <span className={"font-bold text-lg"}>
-              {query.data.rulingPlanet}
+            <span className={"flex items-center gap-x-2 font-bold text-lg"}>
+              <PalnetIcon fill={"gold"} className={"aspect-square size-7"} />
+              <span>{query.data.rulingPlanet}</span>
             </span>
           </li>
         </ul>

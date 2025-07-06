@@ -68,7 +68,7 @@ const HoroscopeDaily = ({ sign }: { sign: string }) => {
         </div>
         <div className={"p-6 bg-white/10 rounded-lg"}>
           <h4 className={"mb-3 font-bold text-lg"}>🍀 Lucky Number</h4>
-          <p className={"text-white/80"}>5</p>
+          <p className={"text-white/80"}>7</p>
         </div>
       </CardContent>
     </Card>

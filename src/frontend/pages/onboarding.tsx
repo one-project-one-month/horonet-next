@@ -28,7 +28,7 @@ const OnboardingPage = () => {
   if (query.isLoading) {
     return (
       <div className={"w-full max-w-[500px] "}>
-        <LoadingSpinner />;
+        <LoadingSpinner />
         <h2 className={"mt-16 text-2xl text-white font-bold text-center"}>
           Connecting to the Cosmos...
         </h2>
