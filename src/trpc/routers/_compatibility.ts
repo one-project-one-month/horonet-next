@@ -1,4 +1,4 @@
-import { and, eq, or, sql } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import { z } from "zod";
 
 import { user } from "@/database/auth-schema";
@@ -42,53 +42,43 @@ export const compatibilityRouter = createTRPCRouter({
   findCompatiblePeople: protectedProcedure
     .input(z.object({
       compatibleSignIds: z.array(z.string()),
-      limit: z.number().nullable(),
+      limit: z.number().default(15),
+      page: z.number().min(0).default(0),
     }))
     .query(async ({ input }) => {
-      if (!input.limit && input.limit !== 0) {
-        const result = await db.select({
-          id: user.id,
-          name: user.name,
-          sign: sign.name,
-          bio: userDetail.bio,
-          gender: userDetail.gender,
-        })
-          .from(sign)
-          .where(or(
-            eq(sign.id, input.compatibleSignIds[0]),
-            eq(sign.id, input.compatibleSignIds[1]),
-            eq(sign.id, input.compatibleSignIds[2]),
-            eq(sign.id, input.compatibleSignIds[3]),
-          ))
-          .innerJoin(decan, eq(decan.signId, sign.id))
-          .innerJoin(userDetail, eq(userDetail.decanId, decan.id))
-          .innerJoin(user, eq(userDetail.userId, user.id))
-          .orderBy(sql`RANDOM()`);
+      const offset = input.page * input.limit;
 
-        return result;
-      }
-      else {
-        const result = await db.select({
-          id: user.id,
-          name: user.name,
-          sign: sign.name,
-          bio: userDetail.bio,
-          gender: userDetail.gender,
-        })
-          .from(sign)
-          .where(or(
-            eq(sign.id, input.compatibleSignIds[0]),
-            eq(sign.id, input.compatibleSignIds[1]),
-            eq(sign.id, input.compatibleSignIds[2]),
-            eq(sign.id, input.compatibleSignIds[3]),
-          ))
-          .innerJoin(decan, eq(decan.signId, sign.id))
-          .innerJoin(userDetail, eq(userDetail.decanId, decan.id))
-          .innerJoin(user, eq(userDetail.userId, user.id))
-          .limit(input.limit)
-          .orderBy(sql`RANDOM()`);
+      const result = await db.select({
+        id: user.id,
+        name: user.name,
+        sign: sign.name,
+        bio: userDetail.bio,
+        gender: userDetail.gender,
+      })
+        .from(sign)
+        .where(or(
+          eq(sign.id, input.compatibleSignIds[0]),
+          eq(sign.id, input.compatibleSignIds[1]),
+          eq(sign.id, input.compatibleSignIds[2]),
+          eq(sign.id, input.compatibleSignIds[3]),
+        ))
+        .innerJoin(decan, eq(decan.signId, sign.id))
+        .innerJoin(userDetail, eq(userDetail.decanId, decan.id))
+        .innerJoin(user, eq(userDetail.userId, user.id))
+        .limit(input.limit + 1)
+        .offset(offset);
 
-        return result;
+      const hasNext = result.length > input.limit;
+      const hasPrev = offset > 0;
+
+      if (hasNext) {
+        result.pop();
       }
+
+      return {
+        compatiblePeople: result,
+        hasNext,
+        hasPrev,
+      };
     }),
 });
