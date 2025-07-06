@@ -4,8 +4,8 @@ import { Calendar, Sparkle, TriangleAlert } from "lucide-react";
 import type { TZodiacSigns } from "@/lib/custom.types";
 
 import LoadingSpinner from "@/components/common/loading-spinner";
+import { getIconFromSign } from "@/components/svg-icons/zodiac-signs";
 import { Card } from "@/components/ui/card";
-import { getIconFromSign } from "@/components/zodiac-signs";
 import { parseDateFromNum } from "@/lib/utils";
 import { trpc } from "@/trpc/clitent";
 

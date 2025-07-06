@@ -1,10 +1,10 @@
 import type { TZodiacSigns } from "@/lib/custom.types";
 
 import LoadingSpinner from "@/components/common/loading-spinner";
+import { getIconFromSign } from "@/components/svg-icons/zodiac-signs";
 import { trpc } from "@/trpc/clitent";
 
 import { Card, CardContent, CardHeader } from "../ui/card";
-import { getIconFromSign } from "../zodiac-signs";
 
 const HoroscopeWeekly = ({ sign }: { sign: string }) => {
   const query = trpc.horoscope.weekly.useQuery({ sign });
