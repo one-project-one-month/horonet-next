@@ -2,6 +2,7 @@ import type { TRPCClientErrorLike } from "@trpc/react-query";
 import type { UseTRPCQueryResult } from "@trpc/react-query/shared";
 
 import { CookieIcon, Flower } from "lucide-react";
+import Image from "next/image";
 
 import type { TPlanetSigns, TZodiacSigns } from "@/lib/custom.types";
 import type { AppRouter } from "@/trpc/routers/_app";
@@ -17,7 +18,7 @@ import { getIconFromSign } from "../svg-icons/zodiac-signs";
 type TData = UseTRPCQueryResult<TUserData, TRPCClientErrorLike<AppRouter>>;
 
 export default function Info({ data }: { data: TData }) {
-  const { data: profileInfo, isSuccess, isPending, isError } = data;
+  const { data: profileInfo, isPending, isError } = data;
   const SignIcon = getIconFromSign(profileInfo?.sign as TZodiacSigns);
   const PlanetIcon = getPlanetFromSign(profileInfo?.planet as TPlanetSigns);
 
@@ -30,21 +31,28 @@ export default function Info({ data }: { data: TData }) {
   }
 
   return (
-    <section className="p-5">
+    <section className="p-2 sm:p-3 md:p-5">
       <div className="mb-5">
         <BackBtn />
       </div>
 
       <div className="flex gap-2 bg-cosmic-purple/20 backdrop-blur-sm p-5 border-background/20 rounded-md border">
         <div className="shrink-0 flex flex-col px-1 md:px-5 ">
-          {isPending ? <div className="w-20 h-full bg-background/10 animate-pulse pt-5 pb-10 bg-clip-content" /> : <SignIcon className="size-20 fill-cosmic-gold float h-full" />}
+          {
+            isPending
+              ? <div className="w-20 h-full bg-background/10 animate-pulse pt-5 pb-10 bg-clip-content" />
+              : <SignIcon className="size-20 fill-cosmic-gold float h-full" />
+          }
           {
             isPending
               ? <div className="w-full h-10 bg-background/20 animate-pulse" />
               : (
-                  <div className="">
+                  <div className="space-y-1">
                     <p className="font-medium"> {zodiacSigns[profileInfo.sign.toLowerCase()].symbol} {profileInfo.sign}</p>
-                    <p title="Ruling Planet"> <span><PlanetIcon className="inline fill-cosmic-starlight size-4" />{profileInfo?.planet}</span></p>
+                    <p className="flex items-center gap-1">
+                      <PlanetIcon className=" fill-cosmic-starlight size-4" />
+                      <span>{profileInfo?.planet}</span>
+                    </p>
                   </div>
                 )
           }
@@ -52,8 +60,21 @@ export default function Info({ data }: { data: TData }) {
 
         <div className="w-full">
           <div className="space-y-1">
-            {isPending ? <p className="bg-cosmic-gold/50 w-28 h-4 animate-pulse rounded-full mt-5" /> : <h1 className="text-cosmic-gold sm:text-4xl font-semibold text-2xl">{isSuccess && profileInfo.username}</h1>}
-            {isPending ? <p className="bg-background/50 w-20 h-3 my-3 animate-pulse rounded-full" /> : <p className="font-medium text-cosmic-starlight">{isSuccess && profileInfo.bio}</p>}
+            {
+              isPending
+                ? <p className="bg-cosmic-gold/50 w-28 h-4 animate-pulse rounded-full mt-5" />
+                : (
+                    <h1 className="text-cosmic-gold sm:text-4xl font-semibold text-2xl flex items-center">
+                      {profileInfo.username}
+                      <Image className="-mb-1.5 -ml-" src={`/assets/icons/compatibility-icons/${profileInfo.gender.toUpperCase()}.svg`} width={26} height={26} alt={`gender ${profileInfo.gender}`} title={profileInfo.gender} />
+                    </h1>
+                  )
+            }
+            {
+              isPending
+                ? <p className="bg-background/50 w-20 h-3 my-3 animate-pulse rounded-full" />
+                : <p className="font-medium text-cosmic-starlight">{profileInfo.bio}</p>
+            }
             { isPending
               ? (
                   <span className="flex gap-1">
@@ -102,7 +123,7 @@ export default function Info({ data }: { data: TData }) {
             isPending={isPending}
           />
           <StatCard
-            main={7}
+            main={isPending ? "" : zodiacSigns[profileInfo.sign.toLowerCase()].luckyNumber}
             text="Lucky Number"
             containerStyle="p-5 border border-background/10"
             mainStyle="text-green-400"

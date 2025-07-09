@@ -15,7 +15,6 @@ export default function Profile() {
     <section className="max-w-7xl mx-auto">
       <Info data={data} />
       <Quotes />
-      <div className="h-dvh"></div>
     </section>
   );
 }
