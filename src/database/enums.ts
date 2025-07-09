@@ -25,3 +25,4 @@ export const giftEnum = pgEnum("gift_enum", ["Fortune Cookie", "Rose"]);
 export type Element = (typeof elementEnum.enumValues)[number];
 export type Gender = (typeof genderEnum.enumValues)[number];
 export type Compatibility = (typeof compatibilityEnum.enumValues)[number];
+export type Gift = (typeof giftEnum.enumValues)[number];

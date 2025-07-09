@@ -1,8 +1,12 @@
 import { CookieIcon, Flower } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
+import type { Gift } from "@/database/enums";
 import type { TZodiacSigns } from "@/lib/custom.types";
+
+import { trpc } from "@/trpc/clitent";
 
 import type { CompatiblePeopleInfo, CompatibleSignsInfo } from "./compatibility-custom-types";
 
@@ -12,6 +16,15 @@ import { BASE_SVG_PATH } from "./compatibility-constants";
 
 const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: CompatiblePeopleInfo[]; compatibleSignsInfo: CompatibleSignsInfo[] }) => {
   const [compatiblePeople, setCompatiblePeople] = useState<CompatiblePeopleInfo[]>([]);
+
+  const giveGift = trpc.gifts.sendGift.useMutation({
+    onSuccess: (_data, variables) => {
+      toast.success(`${variables.giftType} sent successfully.`);
+    },
+    onError: (_error, variables) => {
+      toast.error(`You have already given this user a ${variables.giftType}.`);
+    },
+  });
 
   useEffect(() => {
     setCompatiblePeople(peopleList);
@@ -27,6 +40,10 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
     return compatibleSignsInfo?.filter((e) => {
       return e.compatibleSignName === sign;
     })[0].score;
+  };
+
+  const sendGift = (recvId: string, type: Gift) => {
+    giveGift.mutate({ recieverId: recvId, giftType: type });
   };
 
   return (
@@ -50,13 +67,13 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
               </div>
               <h3 className="bg-white/30 rounded-md w-fit mx-auto py-1 px-2 mb-2 font-bold text-cosmic-starlight">{getChemistry(p.sign)}</h3>
               <div className="flex justify-between px-2 py-2">
-                <Button size={"sm"} className="bg-rose-300 border-1 border-rose-400 hover:bg-rose-400">
+                <Button size={"sm"} className="bg-rose-300 border-1 border-rose-400 hover:bg-rose-400" onClick={() => { sendGift(p.id, "Rose"); }}>
                   <Flower />
                 </Button>
                 <Button size={"sm"} className="bg-gradient-to-r from-cosmic-deep-purple via-cosmic-gold to-cosmic-starlight text-xs sm:text-[14px] md:text-[14px] lg:text-[14px]">
                   <span>View Profile</span>
                 </Button>
-                <Button size={"sm"} className="bg-amber-400 border-1 border-amber-500 hover:bg-amber-500">
+                <Button size={"sm"} className="bg-amber-400 border-1 border-amber-500 hover:bg-amber-500" onClick={() => { sendGift(p.id, "Fortune Cookie"); }}>
                   <CookieIcon />
                 </Button>
               </div>
