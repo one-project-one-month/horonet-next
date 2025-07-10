@@ -16,7 +16,7 @@ type TStatProps = {
 export default function StatCard({ main, text, icon, mainStyle, containerStyle, isPending }: TStatProps) {
   return (
     <div className={cn("bg-background/10 backdrop-blur-xs p-3 w-full rounded-md flex items-center justify-center flex-col", containerStyle)}>
-      <p className={cn("text-4xl font-bold [text-shadow:1px_1px_1px_#555] capitalize", mainStyle)}>
+      <p className={cn("text-3xl sm:text-4xl font-bold [text-shadow:1px_1px_1px_#555] capitalize", mainStyle)}>
         {
           isPending ? <TextLoading /> : main
         }

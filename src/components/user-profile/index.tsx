@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 
 import { trpc } from "@/trpc/clitent";
 
-import PageLoading from "../common/page-loading";
+import LoadingSpinner from "../common/loading-spinner";
 import ErrorBoundary from "../layout/error-boundary";
 import UserInfo from "./user-info";
 
@@ -14,13 +14,17 @@ export default function UserProfilePage() {
 
   if (isPending) {
     return (
-      <PageLoading />
+      <div className="h-[calc(100dvh-84px)] grid place-items-center">
+        <LoadingSpinner />
+      </div>
     );
   }
 
   if (!isValidUserId || !userId) {
     return (
-      <ErrorBoundary />
+      <div className="h-[calc(100dvh-84px)] grid place-items-center">
+        <ErrorBoundary />
+      </div>
     );
   }
 

@@ -155,11 +155,6 @@
     transform: translateY(10px);
   }
 
-  .spin {
-    perspective: 120px;
-    animation: loading 1s linear infinite;
-  }
-
   /* ------------------- Keyframes animation ----------------------- */
 
   @keyframes twinkle {
@@ -179,15 +174,6 @@
     }
     50% {
       transform: translateY(10px);
-    }
-  }
-
-  @keyframes loading {
-    0% {
-      transform: rotateX(50deg) rotateZ(0deg);
-    }
-    100% {
-      transform: rotateX(50deg) rotateZ(360deg);
     }
   }
 }
