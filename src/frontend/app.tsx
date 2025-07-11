@@ -18,6 +18,7 @@ import PrivacyPolicy from "@/frontend/pages/privacy-policy";
 import ProfilePage from "@/frontend/pages/profile";
 import SignInPage from "@/frontend/pages/sign-in";
 import SignUpPage from "@/frontend/pages/sign-up";
+import Tos from "@/frontend/pages/tos";
 import { authLoader } from "@/lib/loader";
 
 import { CompatibilityPage } from "./pages/compatibility";
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
       {
         path: "terms-of-service",
         element: <StaticLayout />,
-        children: [{ index: true, element: <div>TOS</div> }],
+        children: [{ index: true, element: <Tos /> }],
       },
       {
         path: "contact",

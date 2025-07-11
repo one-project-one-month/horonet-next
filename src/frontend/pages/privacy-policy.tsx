@@ -10,7 +10,7 @@ import {
 
 const PrivacyPolicy = () => {
   return (
-    <section className={"px-6"}>
+    <section className={"px-6 pb-16"}>
       <Card className="w-full max-w-[850px]  mx-auto mt-10 bg-white/10 backdrop-blur-lg border-white/20 px-4 py-6 md:py-10 text-white">
         <CardHeader className={"mb-6"}>
           <CardTitle className="text-2xl font-bold lg:text-3xl">Privacy Policy</CardTitle>
@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
         </CardHeader>
         <CardContent>
           <article>
-            <h3 className={"mb-4 text-lg font-bold text-cosmic-gold"}>
+            <h3 className={"mb-4 text-lg md:text-xl font-bold text-cosmic-gold"}>
               Information We Collect
             </h3>
             <p className={"mb-4 text-white/80"}>
@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
           </article>
           <hr className={"my-6"} />
           <article>
-            <h3 className={"mb-4 text-lg font-bold text-cosmic-gold"}>
+            <h3 className={"mb-4 text-lg md:text-xl font-bold text-cosmic-gold"}>
               How We Use Your Information
             </h3>
             <ul className={"list-disc pl-8 md:10 text-white/80"}>
@@ -51,7 +51,7 @@ const PrivacyPolicy = () => {
           </article>
           <hr className={"my-6"} />
           <article>
-            <h3 className={"mb-4 text-lg font-bold text-cosmic-gold"}>
+            <h3 className={"mb-4 text-lg md:text-xl font-bold text-cosmic-gold"}>
               Information Sharing
             </h3>
             <p className={"mb-4 text-white/80"}>
@@ -62,7 +62,7 @@ const PrivacyPolicy = () => {
           </article>
           <hr className={"my-6"} />
           <article>
-            <h3 className={"mb-4 text-lg font-bold text-cosmic-gold"}>
+            <h3 className={"mb-4 text-lg md:text-xl font-bold text-cosmic-gold"}>
               Data Security
             </h3>
             <p className={"mb-4 text-white/80"}>
@@ -73,7 +73,7 @@ const PrivacyPolicy = () => {
           </article>
           <hr className={"my-6"} />
           <article>
-            <h3 className={"mb-4 text-lg font-bold text-cosmic-gold"}>
+            <h3 className={"mb-4 text-lg md:text-xl font-bold text-cosmic-gold"}>
               Contact Us
             </h3>
             <p className={"mb-4 text-white/80"}>
