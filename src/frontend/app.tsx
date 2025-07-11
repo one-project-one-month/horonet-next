@@ -9,17 +9,18 @@ import UserProfilePage from "@/components/user-profile";
 import AppLayout from "@/frontend/layout/app-layout";
 import AuthLayout from "@/frontend/layout/auth-layout";
 import RootLayout from "@/frontend/layout/root-layout";
+import StaticLayout from "@/frontend/layout/static-layout";
 import RootPage from "@/frontend/pages/_root";
 import LandingPage from "@/frontend/pages/landing";
 import OnboardingPage from "@/frontend/pages/onboarding";
 import OnboardingSignPage from "@/frontend/pages/onboarding-sign";
+import PrivacyPolicy from "@/frontend/pages/privacy-policy";
 import ProfilePage from "@/frontend/pages/profile";
 import SignInPage from "@/frontend/pages/sign-in";
 import SignUpPage from "@/frontend/pages/sign-up";
 import { authLoader } from "@/lib/loader";
 
 import { CompatibilityPage } from "./pages/compatibility";
-import StaticSigns from "./pages/static-signs";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "signs",
-        element: <StaticSigns />,
+        element: <StaticLayout />,
         children: [
           {
             path: "fire",
@@ -54,6 +55,21 @@ const router = createBrowserRouter([
             element: <Earth />,
           },
         ],
+      },
+      {
+        path: "privacy-policy",
+        element: <StaticLayout />,
+        children: [{ index: true, element: <PrivacyPolicy /> }],
+      },
+      {
+        path: "terms-of-service",
+        element: <StaticLayout />,
+        children: [{ index: true, element: <div>TOS</div> }],
+      },
+      {
+        path: "contact",
+        element: <StaticLayout />,
+        children: [{ index: true, element: <div>Contact</div> }],
       },
       {
         path: "app",

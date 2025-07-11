@@ -4,12 +4,12 @@ import { Link } from "react-router";
 
 import { Button } from "../ui/button";
 
-function SignsNav() {
+function StaticNav() {
   return (
     <nav className="flex justify-between items-center p-6">
-      <Link to="/landing" className="flex items-center space-x-2">
+      <Link to="/landing" className="flex items-center px-4 md:px-10">
         <Star className="h-8 w-8 text-cosmic-gold" />
-        <span className="text-2xl font-bold text-white">Cosmic Connection</span>
+        <span className="text-2xl font-bold text-white">Horonet</span>
       </Link>
       <Link to="/landing">
         <Button variant="ghost" className="text-white hover:bg-white/10">
@@ -21,4 +21,4 @@ function SignsNav() {
   );
 }
 
-export default SignsNav;
+export default StaticNav;
