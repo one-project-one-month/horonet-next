@@ -1,4 +1,3 @@
-import { CookieIcon, Flower } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -9,6 +8,7 @@ import type { CompatiblePeopleInfo, CompatibleSignsInfo } from "./compatibility-
 import { getIconFromSign } from "../svg-icons/zodiac-signs";
 import { Button } from "../ui/button";
 import { BASE_SVG_PATH } from "./compatibility-constants";
+import GiftButton from "./gift-button";
 
 const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: CompatiblePeopleInfo[]; compatibleSignsInfo: CompatibleSignsInfo[] }) => {
   const [compatiblePeople, setCompatiblePeople] = useState<CompatiblePeopleInfo[]>([]);
@@ -50,15 +50,11 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
               </div>
               <h3 className="bg-white/30 rounded-md w-fit mx-auto py-1 px-2 mb-2 font-bold text-cosmic-starlight">{getChemistry(p.sign)}</h3>
               <div className="flex justify-between px-2 py-2">
-                <Button size={"sm"} className="bg-rose-300 border-1 border-rose-400 hover:bg-rose-400">
-                  <Flower />
-                </Button>
+                <GiftButton recvId={p.id} type={"Rose"} />
                 <Button size={"sm"} className="bg-gradient-to-r from-cosmic-deep-purple via-cosmic-gold to-cosmic-starlight text-xs sm:text-[14px] md:text-[14px] lg:text-[14px]">
                   <span>View Profile</span>
                 </Button>
-                <Button size={"sm"} className="bg-amber-400 border-1 border-amber-500 hover:bg-amber-500">
-                  <CookieIcon />
-                </Button>
+                <GiftButton recvId={p.id} type={"Fortune Cookie"} />
               </div>
             </div>
           );
