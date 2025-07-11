@@ -11,7 +11,14 @@ export default antfu(
       semi: true,
       quotes: "double",
     },
-    ignores: [".husky", ".github", ".idea", "package.json", "drizzle", "src/components/ui"],
+    ignores: [
+      ".husky",
+      ".github",
+      ".idea",
+      "package.json",
+      "drizzle",
+      "src/components/ui",
+    ],
   },
   {
     rules: {
