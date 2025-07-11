@@ -44,6 +44,7 @@
   --color-cosmic-gold: var(--cosmic-gold);
   --color-cosmic-deep-purple: var(--cosmic-deep-purple);
   --color-cosmic-starlight: var(--cosmic-starlight);
+  --breakpoint-cus: 1200px;
 }
 
 :root {
@@ -84,6 +85,7 @@
   --cosmic-gold: #f59e0b;
   --cosmic-deep-purple: #4c1d95;
   --cosmic-starlight: #fef3c7;
+  --breakpoint-cus: 1200px;
 }
 
 .dark {

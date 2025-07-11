@@ -98,3 +98,12 @@ export const horoscopeMonthly = z.object({
   status: z.number().positive(),
   success: z.boolean(),
 });
+
+export const ContactFormSchema = z.object({
+  name: z.string().min(5),
+  email: z.string().email(),
+  subject: z.string().min(10),
+  message: z.string().min(150),
+});
+
+export type TContactFormSchema = z.infer<typeof ContactFormSchema>;
