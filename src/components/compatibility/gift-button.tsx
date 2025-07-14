@@ -1,4 +1,5 @@
 import { Cookie, Flower, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import type { Gift } from "@/database/enums";
 
@@ -9,33 +10,56 @@ import { Button } from "../ui/button";
 const GiftButton = ({ recvId, type }: { recvId: string; type: Gift }) => {
   const giftButtonStats = trpc.gifts.giftButtonPreCheck.useQuery({ recieverId: recvId, giftType: type });
 
+  const [giftCountState, setGiftCountState] = useState<number>(0);
+  const [giftButtonLock, setGiftButtonLock] = useState<boolean>(false);
+  const [giftAlreadySentState, setGiftAlreadySentState] = useState<boolean>(false);
+
   const giftFunc = trpc.gifts.sendGift.useMutation({
     onSettled: () => { giftButtonStats.refetch(); },
   });
 
+  useEffect(() => {
+    if (giftButtonStats.isSuccess) {
+      setGiftCountState(giftButtonStats.data.giftCount);
+      setGiftAlreadySentState(giftButtonStats.data.giftAlreadySent);
+      // Release lock
+      setGiftButtonLock(false);
+    }
+  }, [giftButtonStats.isLoading, giftButtonStats.data]);
+
   const paint = (giftType: Gift) => {
     if (giftType === "Rose") {
-      return `bg-rose-400 border-1 border-rose-500 hover:bg-rose-500`;
+      return `${giftAlreadySentState ? `bg-[#C0392B]` : `bg-[#E74C3C]`} border-1 border-[#C0392B] hover:bg-[#C0392B]`;
     }
     else if (giftType === "Fortune Cookie") {
-      return `bg-amber-400 border-1 border-amber-500 hover:bg-amber-500`;
+      return `${giftAlreadySentState ? `bg-[#B9770E]` : `bg-[#F39C12]`} border-1 border-[#B9770E] hover:bg-[#B9770E]`;
     }
   };
 
   const getIcon = (giftType: Gift) => {
     if (giftType === "Rose") {
-      return <Flower />;
+      return <Flower className={`${giftButtonLock ? `animate-spin` : ``}`} />;
     }
     else if (giftType === "Fortune Cookie") {
-      return <Cookie />;
+      return <Cookie className={`${giftButtonLock ? `animate-bounce` : ``}`} />;
     }
   };
 
   const giftFunction = () => {
-    giftFunc.mutate({ recieverId: recvId, giftType: type, alreadySent: giftButtonStats.data?.giftAlreadySent });
+    if (!giftButtonLock) {
+      // Make UI responsive (Temporary values before useStates sync to tRPC)
+      if (giftCountState !== undefined) {
+        giftAlreadySentState ? setGiftCountState(giftCountState - 1) : setGiftCountState(giftCountState + 1);
+        setGiftAlreadySentState(!giftAlreadySentState);
+      }
+      // Lock to disable, while server is responding
+      setGiftButtonLock(true);
+
+      giftFunc.mutate({ recieverId: recvId, giftType: type, alreadySent: giftButtonStats.data?.giftAlreadySent });
+    }
   };
 
-  if (giftButtonStats.isLoading || giftButtonStats.isFetching) {
+  if (!giftCountState && giftButtonStats.isLoading) {
     return (
       <Button size={"sm"} className={`${paint(type)} w-[52px]`}>
         <Loader2 className={"animate-spin"} />
@@ -45,7 +69,7 @@ const GiftButton = ({ recvId, type }: { recvId: string; type: Gift }) => {
 
   return (
     <Button size={"sm"} className={`${paint(type)}`} onClick={giftFunction}>
-      {getIcon(type)} <span>{giftButtonStats.data?.giftCount}</span>
+      {getIcon(type)} <span>{giftCountState}</span>
     </Button>
   );
 };

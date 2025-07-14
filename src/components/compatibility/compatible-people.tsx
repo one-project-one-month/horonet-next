@@ -7,6 +7,7 @@ import type { CompatiblePeopleInfo, CompatibleSignsInfo } from "./compatibility-
 
 import { getIconFromSign } from "../svg-icons/zodiac-signs";
 import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 import { BASE_SVG_PATH } from "./compatibility-constants";
 import GiftButton from "./gift-button";
 
@@ -30,36 +31,57 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
   };
 
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3">
-      {
-        compatiblePeople && compatiblePeople.length > 0 && compatiblePeople.map((p) => {
-          const SignIcon = getIconFromSign(p.sign as TZodiacSigns);
-          return (
-            <div key={p.id} className="flex flex-col bg-cosmic-purple backdrop-blur-sm border-background/20 rounded-md border mt-2.5 mb-2.5 text-xs sm:text-[14px] md:text-[14px] lg:text-[14px]">
-              <div className="flex justify-between p-2">
-                <div>
-                  <h1 className="flex font-extrabold mb-1 text-sm sm:text-[16px] md:text-[16px] lg:text-[16px] text-cosmic-starlight">
-                    {p.name}
-                    <Image src={`${BASE_SVG_PATH}/${p.gender}.svg`} alt="gender.svg" width={22} height={22} className="object-contain" />
-                  </h1>
-                  <SignIcon className="size-10 fill-cosmic-deep-purple p-1 bg-gradient-to-r rounded-full from-cosmic-gold via-cosmic-starlight to-cosmic-gold" />
-                </div>
-                <h3 className="text-cosmic-starlight font-bold">
-                  Score: {getScore(p.sign)}
-                </h3>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-1">
+      {compatiblePeople?.map((p) => {
+        const SignIcon = getIconFromSign(p.sign as TZodiacSigns);
+        return (
+          <Card
+            key={p.id}
+            className="flex flex-col justify-between bg-gradient-to-br from-cosmic-deep-purple to-yellow-500 border border-background/20 rounded-xl
+            lg:p-5 md:p-5 sm:p-5 py-5 px-2.5 shadow-md backdrop-blur-sm min-h-[220px]
+            transition-all duration-200 ease-in-out space-y-3 hover:shadow-[0_0_20px_2px_rgba(255,215,0,0.4)]"
+          >
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h2 className="text-base font-extrabold text-cosmic-starlight flex items-center gap-2">
+                  {p.name}
+                  <Image
+                    src={`${BASE_SVG_PATH}/${p.gender}.svg`}
+                    width={20}
+                    height={20}
+                    alt="gender"
+                    className="inline-block"
+                  />
+                </h2>
+                <p className="text-xs text-cosmic-starlight/80 font-medium mt-1">
+                  Score: <span className="text-cosmic-gold font-semibold">{getScore(p.sign)}</span>
+                </p>
               </div>
-              <h3 className="bg-white/30 rounded-md w-fit mx-auto py-1 px-2 mb-2 font-bold text-cosmic-starlight">{getChemistry(p.sign)}</h3>
-              <div className="flex justify-between px-2 py-2">
-                <GiftButton recvId={p.id} type={"Rose"} />
-                <Button size={"sm"} className="bg-gradient-to-r from-cosmic-deep-purple via-cosmic-gold to-cosmic-starlight text-xs sm:text-[14px] md:text-[14px] lg:text-[14px]">
-                  <span>View Profile</span>
-                </Button>
-                <GiftButton recvId={p.id} type={"Fortune Cookie"} />
+              <div className="rounded-full bg-gradient-to-r from-cosmic-gold via-cosmic-starlight to-cosmic-gold p-1 shadow-inner">
+                <SignIcon className="h-7 w-7 fill-cosmic-deep-purple" />
               </div>
             </div>
-          );
-        })
-      }
+
+            <div className="bg-white/20 text-cosmic-starlight font-bold text-sm text-center px-3 py-1 rounded-full border-cosmic-gold border-2 backdrop-blur-sm w-fit mx-auto mb-4 shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+              {getChemistry(p.sign)}
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2">
+              <div className="flex justify-between gap-2 sm:gap-2 w-full sm:w-auto">
+                <GiftButton recvId={p.id} type={"Rose"} />
+                <GiftButton recvId={p.id} type={"Fortune Cookie"} />
+              </div>
+
+              <Button
+                size="sm"
+                className="bg-gradient-to-tr from-cosmic-purple to-cosmic-gold text-xs sm:text-sm font-semibold sm:mx-0 mx-auto sm:w-auto"
+              >
+                View Profile
+              </Button>
+            </div>
+          </Card>
+        );
+      })}
     </div>
   );
 };
