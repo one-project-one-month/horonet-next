@@ -1,11 +1,11 @@
 import type { inferRouterOutputs } from "@trpc/server";
 
-import { eq } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { user } from "@/database/auth-schema";
 import { db } from "@/database/drizzle";
-import { decan, sign, userDetail } from "@/database/schema";
+import { decan, gift, sign, userDetail, userGift } from "@/database/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 
 import type { AppRouter } from "./_app";
@@ -44,8 +44,26 @@ export const profileRouter = createTRPCRouter({
         .select({ id: user.id })
         .from(user)
         .where(eq(user.id, opts.input));
-      return validation[0].id;
+      return { isValidId: validation[0].id, isProfile: opts.ctx.id === opts.input };
+    }),
+
+  getStats: protectedProcedure
+    .input(z.string())
+    .query(async (opts) => {
+      const gifts = await db
+        .select({ gift: gift.type, count: count() })
+        .from(userGift)
+        .where(eq(userGift.receiverId, opts.input))
+        .innerJoin(gift, eq(gift.id, userGift.giftId))
+        .groupBy(userGift.giftId, gift.id);
+      return gifts;
+    }),
+
+  getSession: protectedProcedure
+    .query(async (opts) => {
+      return opts.ctx;
     }),
 });
 
 export type TUserData = inferRouterOutputs<AppRouter>["getUserData"]["getProfileInfo"];
+export type TStats = inferRouterOutputs<AppRouter>["getUserData"]["getStats"];

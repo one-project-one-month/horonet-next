@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 import type { TZodiacSigns } from "@/lib/custom.types";
 
@@ -74,9 +75,12 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
 
               <Button
                 size="sm"
+                asChild
                 className="bg-gradient-to-tr from-cosmic-purple to-cosmic-gold text-xs sm:text-sm font-semibold sm:mx-0 mx-auto sm:w-auto"
               >
-                View Profile
+                <Link to={`/app/user/${p.id}`}>
+                  View Profile
+                </Link>
               </Button>
             </div>
           </Card>
