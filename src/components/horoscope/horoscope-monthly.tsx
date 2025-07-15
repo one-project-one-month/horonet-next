@@ -73,7 +73,7 @@ const HoroscopeMonthly = ({ sign }: { sign: string }) => {
             <TriangleAlert />
             <span>Challenging Days</span>
           </h4>
-          <div className={"py-5 flex items-center gap-x-3"}>
+          <div className={"py-5 flex items-center flex-wrap gap-3"}>
             {query.data.challenging_days.split(", ").map(item => (
               <Badge
                 key={item}
@@ -109,7 +109,7 @@ const HoroscopeMonthly = ({ sign }: { sign: string }) => {
             <span>Standout Days</span>
           </h4>
 
-          <div className={"py-5 flex items-center gap-x-3"}>
+          <div className={"py-5 flex items-center flex-wrap gap-3"}>
             {query.data.standout_days.split(", ").map(item => (
               <Badge
                 key={item}
