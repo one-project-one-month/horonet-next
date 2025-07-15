@@ -1,13 +1,16 @@
+import type { ClassValue } from "clsx";
+
 import { Cookie, Flower, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import type { Gift } from "@/database/enums";
 
+import { cn } from "@/lib/utils";
 import { trpc } from "@/trpc/clitent";
 
 import { Button } from "../ui/button";
 
-const GiftButton = ({ recvId, type }: { recvId: string; type: Gift }) => {
+const GiftButton = ({ recvId, type, style }: { recvId: string; type: Gift; style?: ClassValue }) => {
   const giftButtonStats = trpc.gifts.giftButtonPreCheck.useQuery({ recieverId: recvId, giftType: type });
 
   const [giftCountState, setGiftCountState] = useState<number>(0);
@@ -61,14 +64,14 @@ const GiftButton = ({ recvId, type }: { recvId: string; type: Gift }) => {
 
   if (!giftCountState && giftButtonStats.isLoading) {
     return (
-      <Button size={"sm"} className={`${paint(type)} w-[52px]`}>
+      <Button size={"sm"} className={cn(`${paint(type)} w-[52px]`, style)}>
         <Loader2 className={"animate-spin"} />
       </Button>
     );
   }
 
   return (
-    <Button size={"sm"} className={`${paint(type)}`} onClick={giftFunction}>
+    <Button size={"sm"} className={cn(paint(type), style)} onClick={giftFunction}>
       {getIcon(type)} <span>{giftCountState}</span>
     </Button>
   );

@@ -3,24 +3,27 @@ import type { UseTRPCQueryResult } from "@trpc/react-query/shared";
 
 import { CookieIcon, Flower } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import type { TPlanetSigns, TZodiacSigns } from "@/lib/custom.types";
 import type { AppRouter } from "@/trpc/routers/_app";
-import type { TUserData } from "@/trpc/routers/_profile";
+import type { TStats, TUserData } from "@/trpc/routers/_profile";
 
 import { zodiacSigns } from "@/lib/constants";
 
 import BackBtn from "../common/back-btn";
 import StatCard from "../common/stat-card";
+import GiftButton from "../compatibility/gift-button";
 import { getPlanetFromSign } from "../svg-icons/planet-signs";
 import { getIconFromSign } from "../svg-icons/zodiac-signs";
 
 type TData = UseTRPCQueryResult<TUserData, TRPCClientErrorLike<AppRouter>>;
 
-export default function Info({ data }: { data: TData }) {
+export default function Info({ data, stats }: { data: TData; stats?: TStats }) {
   const { data: profileInfo, isPending, isError } = data;
   const SignIcon = getIconFromSign(profileInfo?.sign as TZodiacSigns);
   const PlanetIcon = getPlanetFromSign(profileInfo?.planet as TPlanetSigns);
+  const profileId = usePathname().split("/").pop()!;
 
   if (isError) {
     return (
@@ -36,8 +39,8 @@ export default function Info({ data }: { data: TData }) {
         <BackBtn />
       </div>
 
-      <div className="flex gap-2 bg-cosmic-purple/20 backdrop-blur-sm p-5 border-background/20 rounded-md border">
-        <div className="shrink-0 flex flex-col px-1 md:px-5 ">
+      <div className="flex gap-2 sm:gap-5 lg:gap-7 bg-cosmic-purple/20 backdrop-blur-sm border-background/20 rounded-md border p-5 md:px-7 lg:px-10">
+        <div className="shrink-0 flex flex-col px-1 sm:px-5 md:px-7 lg:px-10 ">
           {
             isPending
               ? <div className="w-20 h-full bg-background/10 animate-pulse pt-5 pb-10 bg-clip-content" />
@@ -51,7 +54,7 @@ export default function Info({ data }: { data: TData }) {
                     <p className="font-medium"> {zodiacSigns[profileInfo.sign.toLowerCase()].symbol} {profileInfo.sign}</p>
                     <p className="flex items-center gap-1">
                       <PlanetIcon className=" fill-cosmic-starlight size-4" />
-                      <span>{profileInfo?.planet}</span>
+                      <span>{profileInfo.planet}</span>
                     </p>
                   </div>
                 )
@@ -88,22 +91,39 @@ export default function Info({ data }: { data: TData }) {
                 ))}
           </div>
 
-          <div className="flex gap-2 w-full mt-3">
-            <StatCard
-              main={23}
-              text="Total Cookies"
-              icon={<CookieIcon />}
-              mainStyle="text-cosmic-gold"
-              isPending={isPending}
-            />
-            <StatCard
-              main={14}
-              text="Total Roses"
-              icon={<Flower />}
-              mainStyle="text-rose-400"
-              isPending={isPending}
-            />
-          </div>
+          {
+            profileId === "profile"
+              ? (
+                  <div className="flex gap-2 w-full mt-3">
+                    <StatCard
+                      main={stats?.find(stat => stat.gift === "Fortune Cookie")?.count || 0}
+                      text="Total Cookies"
+                      icon={<CookieIcon />}
+                      mainStyle="text-cosmic-gold"
+                      isPending={isPending}
+                    />
+                    <StatCard
+                      main={stats?.find(stat => stat.gift === "Rose")?.count || 0}
+                      text="Total Roses"
+                      icon={<Flower />}
+                      mainStyle="text-rose-400"
+                      isPending={isPending}
+                    />
+                  </div>
+                )
+              : (
+                  <div className="grid grid-cols-2 gap-2 w-full mt-3 h-[84px] md:h-24">
+                    <div title="Gift Fortune Cookie" className="size-full rounded-sm self-stretch relative">
+                      <GiftButton recvId={profileId} type="Fortune Cookie" style="size-full text-2xl flex items-center pb-5" />
+                      <p className="absolute pointer-events-none select-none bottom-2 left-0 right-0 text-center text-sm">Total Cookies</p>
+                    </div>
+                    <div title="Gift Rose" className="size-full rounded-sm self-stretch relative">
+                      <GiftButton recvId={profileId} type="Rose" style="size-full text-2xl flex items-center pb-5" />
+                      <p className="absolute pointer-events-none select-none bottom-2 left-0 right-0 text-center text-sm">Total Roses</p>
+                    </div>
+                  </div>
+                )
+          }
         </div>
       </div>
 

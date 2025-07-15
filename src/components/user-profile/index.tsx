@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 
 import { trpc } from "@/trpc/clitent";
@@ -8,9 +10,16 @@ import UserInfo from "./user-info";
 
 export default function UserProfilePage() {
   const { userId } = useParams();
+  const router = useRouter();
 
-  const { data: isValidUserId, isPending } = trpc.getUserData.validateUserId.useQuery(userId || "");
-  // console.log("Validation %s", isValidUserId);
+  const { data, isPending } = trpc.getUserData.validateUserId.useQuery(userId || "");
+  // console.log("Validation", data?.isValidId);
+
+  useEffect(() => {
+    if (data?.isProfile) {
+      router.replace("/app/user/profile");
+    }
+  }, [data?.isProfile, router]);
 
   if (isPending) {
     return (
@@ -20,7 +29,7 @@ export default function UserProfilePage() {
     );
   }
 
-  if (!isValidUserId || !userId) {
+  if (!data?.isValidId || !userId) {
     return (
       <div className="h-[calc(100dvh-84px)] grid place-items-center">
         <ErrorBoundary />
