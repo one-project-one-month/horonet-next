@@ -12,14 +12,13 @@ import { Button } from "../ui/button";
 
 const GiftButton = ({ recvId, type, style }: { recvId: string; type: Gift; style?: ClassValue }) => {
   const giftButtonStats = trpc.gifts.giftButtonPreCheck.useQuery({ recieverId: recvId, giftType: type });
+  const giftFunc = trpc.gifts.sendGift.useMutation({
+    onSettled: () => { giftButtonStats.refetch(); },
+  });
 
   const [giftCountState, setGiftCountState] = useState<number>(0);
   const [giftButtonLock, setGiftButtonLock] = useState<boolean>(false);
   const [giftAlreadySentState, setGiftAlreadySentState] = useState<boolean>(false);
-
-  const giftFunc = trpc.gifts.sendGift.useMutation({
-    onSettled: () => { giftButtonStats.refetch(); },
-  });
 
   useEffect(() => {
     if (giftButtonStats.isSuccess) {
@@ -35,7 +34,7 @@ const GiftButton = ({ recvId, type, style }: { recvId: string; type: Gift; style
       return `${giftAlreadySentState ? `bg-[#C0392B]` : `bg-[#E74C3C]`} border-1 border-[#C0392B] hover:bg-[#C0392B]`;
     }
     else if (giftType === "Fortune Cookie") {
-      return `${giftAlreadySentState ? `bg-[#B9770E]` : `bg-[#F39C12]`} border-1 border-[#B9770E] hover:bg-[#B9770E]`;
+      return `${giftAlreadySentState ? `bg-[#ed7712]` : `bg-[#F39C12]`} border-1 border-[#ed7712] hover:bg-[#ed7712]`;
     }
   };
 

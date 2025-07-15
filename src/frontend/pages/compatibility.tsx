@@ -18,10 +18,6 @@ export const CompatibilityPage = () => {
     limit: 6,
   }, { enabled: true });
 
-  // Dynamic {enabled} based on userLimitParam to stop it from fetching on initial render.
-  // Passing in 'userLimit' directly causes it to refetch on every state change when setting limits via input.
-  // Used a second state called 'userLimitParam' to trigger fetch.
-
   if (getCurrentUserSign.isLoading || findCompatibleSigns.isLoading) {
     return (
       <div
@@ -48,7 +44,7 @@ export const CompatibilityPage = () => {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center p-2">
       <WiseWords sign={getCurrentUserSign.data?.signName as string} />
 
       <div className="container mx-auto bg-white/10 border-white/20 backdrop-blur-lg rounded-md p-3 mt-8">
