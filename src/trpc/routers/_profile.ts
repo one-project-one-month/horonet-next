@@ -12,8 +12,9 @@ import type { AppRouter } from "./_app";
 
 export const profileRouter = createTRPCRouter({
   getProfileInfo: protectedProcedure
-    .input(z.string())
+    .input(z.string().optional())
     .query(async (opts) => {
+      const userId = opts.input || opts.ctx.id;
       const userData = await db
         .select({
           userId: userDetail.userId,
@@ -30,9 +31,9 @@ export const profileRouter = createTRPCRouter({
           username: user.name,
         })
         .from(userDetail)
-        .where(eq(userDetail.userId, opts.input))
+        .where(eq(userDetail.userId, userId))
         .innerJoin(decan, eq(userDetail.decanId, decan.id))
-        .innerJoin(user, eq(user.id, opts.input))
+        .innerJoin(user, eq(user.id, userId))
         .innerJoin(sign, eq(decan.signId, sign.id));
       return userData[0];
     }),
@@ -48,20 +49,14 @@ export const profileRouter = createTRPCRouter({
     }),
 
   getStats: protectedProcedure
-    .input(z.string())
     .query(async (opts) => {
       const gifts = await db
         .select({ gift: gift.type, count: count() })
         .from(userGift)
-        .where(eq(userGift.receiverId, opts.input))
+        .where(eq(userGift.receiverId, opts.ctx.id))
         .innerJoin(gift, eq(gift.id, userGift.giftId))
         .groupBy(userGift.giftId, gift.id);
       return gifts;
-    }),
-
-  getSession: protectedProcedure
-    .query(async (opts) => {
-      return opts.ctx;
     }),
 });
 
