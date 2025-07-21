@@ -8,7 +8,7 @@ import { trpc } from "@/trpc/clitent";
 
 import type { Quote } from "./wisdom-custom-type";
 
-import ReactionButton from "./reaction-button";
+import ReactionPanel from "./reaction-panel";
 
 const WisdomPost = () => {
   const quoteQuery = trpc.wisdom.getAllWisdomWithStardustCounts.useQuery();
@@ -59,7 +59,7 @@ const WisdomPost = () => {
           <Button
             onClick={handleSubmitQuote}
             disabled={!newQuote.trim()}
-            className="bg-gradient-to-r from-cosmic-purple to-cosmic-gold hover:from-cosmic-gold hover:to-cosmic-purple"
+            className="cursor-pointer bg-gradient-to-r from-cosmic-purple to-cosmic-gold hover:from-cosmic-gold hover:to-cosmic-purple"
           >
             Share Wisdom
           </Button>
@@ -71,7 +71,10 @@ const WisdomPost = () => {
           ✨ Cosmic Community
         </h3>
         {quotes.map(quote => (
-          <Card key={quote.id} className="bg-white/10 backdrop-blur-lg border-white/20 text-white p-6">
+          <Card
+            key={quote.id}
+            className="bg-white/10 backdrop-blur-lg border-white/20 text-white p-6"
+          >
             <div className="flex items-start gap-3 mb-3">
               <div className="text-xl">
                 {zodiacSigns[quote.userSign.toLowerCase()].symbol}
@@ -88,9 +91,8 @@ const WisdomPost = () => {
                 <p className="text-white/90 leading-relaxed">{quote.content}</p>
               </div>
             </div>
-            <div className="flex items-center justify-between gap-4 pt-3 border-t border-white/10">
-              <StardustReactions counts={quote.stardustCounts || {}} />
-              <ReactionButton />
+            <div className="pt-3 border-t border-white/10">
+              <ReactionPanel wisdomId={quote.id} />
             </div>
           </Card>
         ))}
@@ -98,26 +100,5 @@ const WisdomPost = () => {
     </div>
   );
 };
-
-const STARDUST_EMOJIS: Record<string, string> = {
-  Lumen: "🌞",
-  Glimmer: "✨",
-  Nebula: "🌌",
-};
-
-function StardustReactions({ counts }: { counts: Partial<Record<string, number>> }) {
-  return (
-    <div className="flex gap-3 items-center">
-      {Object.entries(STARDUST_EMOJIS).map(([type, emoji]) => (
-        <span key={type} className="flex items-center text-lg">
-          {emoji}
-          <span className="ml-1 text-base font-semibold">
-            {counts[type] && counts[type]! > 0 ? counts[type] : 0}
-          </span>
-        </span>
-      ))}
-    </div>
-  );
-}
 
 export default WisdomPost;
