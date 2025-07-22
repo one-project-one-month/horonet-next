@@ -23,6 +23,7 @@ import Tos from "@/frontend/pages/tos";
 import { authLoader } from "@/lib/loader";
 
 import { CompatibilityPage } from "./pages/compatibility";
+import WisdomPage from "./pages/wisdom";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,7 @@ const router = createBrowserRouter([
           },
           {
             path: "wisdom",
+            element: <WisdomPage />,
           },
           {
             path: "compatibility",

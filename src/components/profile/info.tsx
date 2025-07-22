@@ -10,6 +10,7 @@ import type { AppRouter } from "@/trpc/routers/_app";
 import type { TStats, TUserData } from "@/trpc/routers/_profile";
 
 import { zodiacSigns } from "@/lib/constants";
+import { trpc } from "@/trpc/clitent";
 
 import BackBtn from "../common/back-btn";
 import StatCard from "../common/stat-card";
@@ -23,6 +24,7 @@ export default function Info({ data, stats }: { data: TData; stats?: TStats }) {
   const { data: profileInfo, isPending, isError } = data;
   const SignIcon = getIconFromSign(profileInfo?.sign as TZodiacSigns);
   const PlanetIcon = getPlanetFromSign(profileInfo?.planet as TPlanetSigns);
+  const { data: quotesCount } = trpc.wisdom.getUserQuotesCount.useQuery();
   const profileId = usePathname().split("/").pop()!;
 
   if (isError) {
@@ -130,7 +132,7 @@ export default function Info({ data, stats }: { data: TData; stats?: TStats }) {
       <div className="mt-5">
         <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
           <StatCard
-            main={3}
+            main={quotesCount || 0}
             text="Quotes shared"
             containerStyle="p-5 border border-background/10"
             mainStyle="text-cosmic-gold"

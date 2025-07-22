@@ -8,6 +8,8 @@ import { compatibilityRouter } from "./_compatibility";
 import { giftRouter } from "./_gift";
 import { horoscopeRouter } from "./_horoscope";
 import { profileRouter } from "./_profile";
+import { stardustRouter } from "./_stardust";
+import { wisdomRouter } from "./_wisdom";
 
 export const appRouter = createTRPCRouter({
   hello: baseProcedure
@@ -27,6 +29,8 @@ export const appRouter = createTRPCRouter({
   horoscope: horoscopeRouter,
   getUserData: profileRouter,
   gifts: giftRouter,
+  wisdom: wisdomRouter,
+  stardust: stardustRouter,
 });
 // export type definition of API
 export type AppRouter = typeof appRouter;
