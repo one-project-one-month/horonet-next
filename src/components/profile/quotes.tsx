@@ -13,8 +13,6 @@ export default function Quotes() {
   const quoteQuery = trpc.wisdom.getUserQuotes.useQuery();
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
-  console.log(quoteQuery.data);
-
   useEffect(() => {
     if (quoteQuery.data) {
       setQuotes(

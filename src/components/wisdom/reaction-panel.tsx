@@ -19,11 +19,11 @@ import {
 export default function ReactionPanel({ wisdomId }: { wisdomId: string }) {
   const [showReactions, setShowReactions] = useState(false);
   const [selectedReaction, setSelectedReaction] = useState<string | null>(null);
-  const userReactionQuery = trpc.wisdom.getUserStardustReaction.useQuery(
+  const userReactionQuery = trpc.stardust.getUserStardustReaction.useQuery(
     { wisdomId },
     { enabled: !!wisdomId },
   );
-  const countsQuery = trpc.wisdom.getStardustCountsByWisdomId.useQuery(
+  const countsQuery = trpc.stardust.getStardustCountsByWisdomId.useQuery(
     { wisdomId },
     { enabled: !!wisdomId },
   );
@@ -35,7 +35,7 @@ export default function ReactionPanel({ wisdomId }: { wisdomId: string }) {
       );
     }
   }, [userReactionQuery.data]);
-  const reactMutation = trpc.wisdom.reactStardust.useMutation({
+  const reactMutation = trpc.stardust.reactStardust.useMutation({
     onSuccess: (data) => {
       countsQuery.refetch();
       setSelectedReaction(
