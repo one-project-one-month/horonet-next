@@ -31,10 +31,11 @@ const GiftButton = ({ recvId, type, style }: { recvId: string; type: Gift; style
 
   const paint = (giftType: Gift) => {
     if (giftType === "Rose") {
-      return `${giftAlreadySentState ? `bg-[#C0392B]` : `bg-[#E74C3C]`} border-1 border-[#C0392B] hover:bg-[#C0392B]`;
+      return `${giftAlreadySentState ? `bg-[#B94786]` : `bg-[#CC5A9A]`} border-1 border-[#B94786] rounded-[14px] hover:bg-[#B94786] shadow-[0_0_20px_2px_rgba(204,90,154,0.35)]`;
     }
     else if (giftType === "Fortune Cookie") {
-      return `${giftAlreadySentState ? `bg-[#ed7712]` : `bg-[#F39C12]`} border-1 border-[#ed7712] hover:bg-[#ed7712]`;
+      return `${giftAlreadySentState ? `bg-[#A77448]` : `bg-[#BD8C57]`} border-1 border-[#A77448] rounded-[14px] hover:bg-[#A77448] shadow-[0_0_20px_2px_rgba(189,140,87,0.35)]
+`;
     }
   };
 
