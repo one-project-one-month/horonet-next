@@ -38,7 +38,7 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
         return (
           <Card
             key={p.id}
-            className="flex flex-col justify-between bg-gradient-to-br from-cosmic-deep-purple to-yellow-600 border border-background/20 rounded-xl
+            className="flex flex-col justify-between bg-gradient-to-br from-cosmic-deep-purple/30 to-cosmic-gold/30 border border-background/20 rounded-xl
             lg:p-5 md:p-5 sm:p-5 py-5 px-2.5 shadow-md backdrop-blur-sm min-h-[220px]
             transition-all duration-200 ease-in-out space-y-3 hover:shadow-[0_0_20px_2px_rgba(255,215,0,0.4)]"
           >
@@ -63,7 +63,7 @@ const CompatiblePeople = ({ peopleList, compatibleSignsInfo }: { peopleList: Com
               </div>
             </div>
 
-            <div className="bg-white/20 text-cosmic-starlight font-bold text-sm text-center px-3 py-1 rounded-full border-cosmic-gold border-2 backdrop-blur-sm w-fit mx-auto mb-4 shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+            <div className="bg-white/20 text-cosmic-starlight font-bold text-sm text-center px-3 py-1 rounded-full border-cosmic-gold/30 border-2 backdrop-blur-sm w-fit mx-auto mb-4 shadow-[0_0_10px_rgba(212,175,55,0.5)]">
               {getChemistry(p.sign)}
             </div>
 

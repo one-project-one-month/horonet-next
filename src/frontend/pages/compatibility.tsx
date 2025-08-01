@@ -44,7 +44,7 @@ export const CompatibilityPage = () => {
   };
 
   return (
-    <div className="text-center p-2">
+    <div className="text-center p-5.5">
       <WiseWords sign={getCurrentUserSign.data?.signName as string} />
 
       <div className="container mx-auto bg-white/10 border-white/20 backdrop-blur-lg rounded-md p-3 mt-8">
