@@ -25,6 +25,9 @@ export default function UserProfilePage() {
     return (
       <div className="h-[calc(100dvh-84px)] grid place-items-center">
         <LoadingSpinner />
+        <h2 className={"mt-16 text-2xl text-white font-bold text-center"}>
+          Spiritually connecting...
+        </h2>
       </div>
     );
   }
