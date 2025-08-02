@@ -9,7 +9,7 @@ export default function Profile() {
 
   return (
     <section className="max-w-7xl mx-auto">
-      <Info data={data} stats={stats} />
+      <Info data={data} stats={stats} self={true} />
       <Quotes />
     </section>
   );

@@ -20,11 +20,11 @@ import { getIconFromSign } from "../svg-icons/zodiac-signs";
 
 type TData = UseTRPCQueryResult<TUserData, TRPCClientErrorLike<AppRouter>>;
 
-export default function Info({ data, stats }: { data: TData; stats?: TStats }) {
+export default function Info({ data, stats, self }: { data: TData; stats?: TStats; self: boolean }) {
   const { data: profileInfo, isPending, isError } = data;
   const SignIcon = getIconFromSign(profileInfo?.sign as TZodiacSigns);
   const PlanetIcon = getPlanetFromSign(profileInfo?.planet as TPlanetSigns);
-  const { data: quotesCount } = trpc.wisdom.getUserQuotesCount.useQuery();
+  const { data: quotesCount } = self === true ? trpc.wisdom.getUserQuotesCount.useQuery() : trpc.wisdom.getOtherUserQuotesCount.useQuery(data.data?.userId as string);
   const profileId = usePathname().split("/").pop()!;
 
   if (isError) {
