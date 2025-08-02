@@ -79,6 +79,42 @@ export const wisdomRouter = createTRPCRouter({
     return quotesCount[0].count;
   }),
 
+  getOtherUserQuotes: protectedProcedure.input(z.string()).query(async ({ input }) => {
+    const quotes = await db
+      .select({
+        id: wisdom.id,
+        content: wisdom.content,
+        createdAt: wisdom.createdAt,
+        username: user.name,
+        userSign: sign.name,
+      })
+      .from(wisdom)
+      .where(eq(wisdom.userId, input))
+      .innerJoin(user, eq(wisdom.userId, user.id))
+      .innerJoin(userDetail, eq(userDetail.userId, input))
+      .innerJoin(decan, eq(userDetail.decanId, decan.id))
+      .innerJoin(sign, eq(decan.signId, sign.id));
+
+    return quotes.map(q => ({
+      id: q.id,
+      content: q.content,
+      createdAt: q.createdAt,
+      username: q.username,
+      userSign: q.userSign,
+    }));
+  }),
+
+  getOtherUserQuotesCount: protectedProcedure.input(z.string()).query(async ({ input }) => {
+    const quotesCount = await db
+      .select({
+        count: countDistinct(wisdom.id),
+      })
+      .from(wisdom)
+      .where(eq(wisdom.userId, input));
+
+    return quotesCount[0].count;
+  }),
+
   // Create wisdom
   createWisdom: protectedProcedure
     .input(
